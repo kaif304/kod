@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+@import 'tailwindcss';
+
+:root {
+  color-scheme: light;
+  --bg: #f5efe4;
+  --surface: rgba(255, 250, 244, 0.74);
+  --surface-strong: rgba(255, 251, 247, 0.94);
+  --card: rgba(23, 28, 33, 0.72);
+  --text: #1d252c;
+  --muted: #5f6d75;
+  --border: rgba(113, 128, 150, 0.18);
+  --brand: #0e7490;
+  --brand-deep: #0b3b4a;
+  --accent: #c58a2d;
+  --shadow: 0 30px 80px rgba(14, 27, 36, 0.14);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background:
+    radial-gradient(circle at top, rgba(12, 114, 144, 0.16), transparent 28%),
+    linear-gradient(180deg, #f8f4eb 0%, #f2ede4 42%, #fcfaf7 100%);
+  color: var(--text);
+  font-family: 'Manrope', sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  /* color: inherit; */
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.font-display {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.glass-panel {
+  background: var(--surface);
+  backdrop-filter: blur(18px);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.section-shell {
+  width: min(1200px, calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+.soft-grid {
+  background-image:
+    linear-gradient(rgba(11, 59, 74, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(11, 59, 74, 0.04) 1px, transparent 1px);
+  background-size: 42px 42px;
+}

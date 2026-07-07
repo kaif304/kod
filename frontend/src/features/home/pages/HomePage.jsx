@@ -1,0 +1,267 @@
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import PackageCard from '../../../components/common/PackageCard.jsx'
+import SectionHeading from '../../../components/common/SectionHeading.jsx'
+import Loader from '../../../components/common/Loader.jsx'
+import { fallbackPackages, siteConfig } from '../../../content/site.js'
+import { fetchPackages } from '../../packages/services.js'
+import HeroSection from '../components/HeroSection.jsx'
+
+function HomePage() {
+  const [featuredPackages, setFeaturedPackages] = useState(fallbackPackages.slice(0, 3))
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    let isMounted = true
+
+    async function loadFeaturedPackages() {
+      try {
+        const result = await fetchPackages({ featured: true, limit: 3 })
+        if (isMounted && result.items?.length) {
+          setFeaturedPackages(result.items)
+        }
+      } catch {
+        // Keep the fallback cards for first-run and offline states.
+      } finally {
+        if (isMounted) {
+          setIsLoading(false)
+        }
+      }
+    }
+
+    loadFeaturedPackages()
+
+    return () => {
+      isMounted = false
+    }
+  }, [])
+
+  return (
+    <>
+      <HeroSection />
+
+      <section className="section-shell mt-20">
+        <div className="grid gap-6 md:grid-cols-3">
+          {[
+            ['Lead-first travel brand', 'Built for inquiry, callback, and manual conversion'],
+            ['Admin visibility', 'Packages, leads, token payments, and analytics in one place'],
+            ['Premium front-end tone', 'Quiet luxury visuals with responsive, smooth interactions'],
+          ].map(([title, text]) => (
+            <div key={title} className="glass-panel rounded-[1.75rem] p-6">
+              <p className="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-900/70">
+                Why it works
+              </p>
+              <h3 className="mt-4 text-2xl font-semibold text-slate-900">{title}</h3>
+              <p className="mt-3 text-sm leading-7 text-slate-600">{text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="section-shell mt-24">
+        <div className="flex items-end justify-between gap-6">
+          <SectionHeading
+            eyebrow="Featured Packages"
+            title="Travel packages that invite conversation, not confusion."
+            description="Each package page is built to showcase itinerary depth, destination appeal, and strong lead capture options."
+          />
+          <Link
+            to="/packages"
+            className="hidden rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 md:inline-flex"
+          >
+            View all packages
+          </Link>
+        </div>
+
+        <div className="mt-10">
+          {isLoading ? (
+            <div className="py-16">
+              <Loader label="Loading featured packages" />
+            </div>
+          ) : (
+            <div className="grid gap-6 lg:grid-cols-3">
+              {featuredPackages.map((item) => (
+                <PackageCard key={item.slug} item={item} />
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      <section className="section-shell mt-24">
+        <SectionHeading
+          eyebrow="Popular Destinations"
+          title="Made for calm, premium destination discovery."
+          description="The homepage introduces strong travel intent with large-format visuals, subtle motion, and clear contact calls to action."
+          align="center"
+        />
+        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+          {siteConfig.destinations.map((destination, index) => (
+            <motion.article
+              key={destination.name}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.45, delay: index * 0.08 }}
+              className="group relative overflow-hidden rounded-[2rem]"
+            >
+              <img
+                src={destination.image}
+                alt={destination.name}
+                className="h-[420px] w-full object-cover transition duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/10 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-6 text-white">
+                <p className="text-xs uppercase tracking-[0.35em] text-white/70">Destination</p>
+                <h3 className="mt-3 text-3xl font-semibold">{destination.name}</h3>
+                <p className="mt-2 text-sm text-white/75">{destination.subtitle}</p>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </section>
+
+      <section className="section-shell mt-24 grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
+        <SectionHeading
+          eyebrow="Why Choose Us"
+          title="Human-led conversions with a polished digital front door."
+          description="This platform intentionally supports manual travel operations while still feeling premium, scalable, and conversion-focused."
+        />
+        <div className="grid gap-4">
+          {siteConfig.whyChooseUs.map((item) => (
+            <div key={item.title} className="glass-panel rounded-[1.75rem] p-6">
+              <h3 className="text-2xl font-semibold text-slate-900">{item.title}</h3>
+              <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="section-shell mt-24">
+        <SectionHeading
+          eyebrow="Testimonials"
+          title="Travelers remember responsiveness as much as destination quality."
+          description="These sections help communicate confidence to leads before your managers even start the first conversation."
+          align="center"
+        />
+        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+          {siteConfig.testimonials.map((testimonial) => (
+            <div key={testimonial.name} className="glass-panel rounded-[2rem] p-6">
+              <p className="text-sm leading-8 text-slate-600">“{testimonial.quote}”</p>
+              <p className="mt-6 text-sm font-semibold text-slate-900">{testimonial.name}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="section-shell mt-24 pb-4">
+        <div className="overflow-hidden rounded-[2.5rem] bg-slate-950 px-6 py-10 text-white sm:px-10">
+          <div className="grid items-center gap-8 lg:grid-cols-[1fr_auto]">
+            <div>
+              <p className="text-xs uppercase tracking-[0.35em] text-white/60">Ready to convert</p>
+              <h2 className="mt-4 font-display text-5xl leading-none">
+                Launch a travel storefront that feels premium and sells with a human touch.
+              </h2>
+              <p className="mt-4 max-w-2xl text-sm leading-8 text-white/70">
+                Browse packages, request callbacks, or reserve with a token amount. The handoff to
+                your operations team stays fully manual, deliberate, and controlled.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                to="/packages"
+                className="rounded-full bg-white px-6 py-3 text-sm font-bold text-slate-950"
+              >
+                Browse Packages
+              </Link>
+              <Link
+                to="/contact"
+                className="rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white"
+              >
+                Contact Us
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  )
+}
+
+export default HomePage
+
+
+
+
+// import { useEffect, useState } from 'react'
+
+// import { fallbackPackages } from '../../../content/site.js'
+// import { fetchPackages } from '../../packages/services.js'
+
+// import CTASection from '../components/CTASection.jsx'
+// import FeaturedPackagesSection from '../components/FeaturedPackagesSection.jsx'
+// import FeaturesSection from '../components/FeaturesSection.jsx'
+// import HeroSection from '../components/HeroSection.jsx'
+// import PopularDestinationsSection from '../components/PopularDestinationsSection.jsx'
+// import TestimonialsSection from '../components/TestimonialsSection.jsx'
+// import WhyChooseUsSection from '../components/WhyChooseUsSection.jsx'
+
+// function HomePage() {
+//   const [featuredPackages, setFeaturedPackages] = useState(
+//     fallbackPackages.slice(0, 3)
+//   )
+//   const [isLoading, setIsLoading] = useState(true)
+
+//   useEffect(() => {
+//     let isMounted = true
+
+//     async function loadFeaturedPackages() {
+//       try {
+//         const result = await fetchPackages({
+//           featured: true,
+//           limit: 3,
+//         })
+
+//         if (isMounted && result.items?.length) {
+//           setFeaturedPackages(result.items)
+//         }
+//       } catch {
+//         // use fallback packages
+//       } finally {
+//         if (isMounted) {
+//           setIsLoading(false)
+//         }
+//       }
+//     }
+
+//     loadFeaturedPackages()
+
+//     return () => {
+//       isMounted = false
+//     }
+//   }, [])
+
+//   return (
+//     <>
+//       <HeroSection />
+
+//       <FeaturesSection />
+
+//       <FeaturedPackagesSection
+//         packages={featuredPackages}
+//         isLoading={isLoading}
+//       />
+
+//       <PopularDestinationsSection />
+
+//       <WhyChooseUsSection />
+
+//       <TestimonialsSection />
+
+//       <CTASection />
+//     </>
+//   )
+// }
+
+// export default HomePage

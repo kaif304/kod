@@ -21,32 +21,49 @@ import { ROLES } from "../../constants/roles.js";
 
 const router = Router();
 
-router.get("/", validate(packageQuerySchema, "query"), getAllPackages);
+// User Request
+
 router.get(
-  "/admin/list",
+  "/", 
+  validate(packageQuerySchema, "query"), 
+  getAllPackages
+);
+
+// Admin Routes
+
+router.get(
+  "/admin/packages",
   requireAuth,
   authorizeRoles(ROLES.ADMIN, ROLES.MANAGER),
   validate(packageQuerySchema, "query"),
   getAdminPackages,
 );
-router.get("/:slug", validate(packageParamsSchema, "params"), getSinglePackage);
+
+router.get(
+  "/:slug", 
+  validate(packageParamsSchema, "params"), 
+  getSinglePackage
+);
+
 router.post(
-  "/",
+  "/admin/packages",
   requireAuth,
   authorizeRoles(ROLES.ADMIN, ROLES.MANAGER),
   validate(packageSchema),
   createSinglePackage,
 );
+
 router.patch(
-  "/:id",
+  "/admin/packages/:id",
   requireAuth,
   authorizeRoles(ROLES.ADMIN, ROLES.MANAGER),
   validate(packageParamsSchema, "params"),
   validate(packageSchema),
   updateSinglePackage,
 );
+
 router.delete(
-  "/:id",
+  "/admin/packages/:id",
   requireAuth,
   authorizeRoles(ROLES.ADMIN),
   validate(packageParamsSchema, "params"),

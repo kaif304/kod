@@ -20,14 +20,6 @@ const serializePackage = (row) => ({
   startingLocation: row.starting_location,
   destination: row.destination,
   coverImage: row.cover_image,
-  galleryImages: row.gallery_images || [],
-  category: row.category,
-  highlights: row.highlights || [],
-  inclusions: row.inclusions || [],
-  exclusions: row.exclusions || [],
-  faqs: row.faqs || [],
-  isFeatured: row.is_featured,
-  tokenAmount: Number(row.token_amount),
   status: row.status,
   createdAt: row.created_at,
   itinerary: row.itinerary || [],
@@ -45,12 +37,9 @@ const buildWhereClause = (filters, values) => {
 
   if (filters.search) {
     values.push(`%${filters.search}%`);
-    clauses.push(`(p.title ILIKE $${values.length} OR p.description ILIKE $${values.length})`);
-  }
-
-  if (filters.category) {
-    values.push(filters.category);
-    clauses.push(`p.category = $${values.length}`);
+    clauses.push(
+      `(p.title ILIKE $${values.length} OR p.description ILIKE $${values.length})`
+    );
   }
 
   if (filters.destination) {
@@ -63,21 +52,9 @@ const buildWhereClause = (filters, values) => {
     clauses.push(`p.duration = $${values.length}`);
   }
 
-  if (filters.minBudget) {
-    values.push(Number(filters.minBudget));
-    clauses.push(`p.price >= $${values.length}`);
-  }
-
-  if (filters.maxBudget) {
-    values.push(Number(filters.maxBudget));
-    clauses.push(`p.price <= $${values.length}`);
-  }
-
-  if (filters.featured === "true") {
-    clauses.push("p.is_featured = true");
-  }
-
-  return clauses.length > 0 ? ` WHERE ${clauses.join(" AND ")}` : "";
+  return clauses.length > 0
+    ? ` WHERE ${clauses.join(" AND ")}`
+    : "";
 };
 
 export const getPackages = async (filters, options = { onlyPublished: true }) => {
@@ -139,6 +116,7 @@ export const createPackage = async (payload) => {
     await client.query("BEGIN");
 
     const slug = payload.slug || createSlug(payload.title);
+
     const insertResult = await client.query(packagesSql.insertPackage, [
       payload.title,
       slug,
@@ -148,27 +126,24 @@ export const createPackage = async (payload) => {
       payload.startingLocation,
       payload.destination,
       payload.coverImage,
-      JSON.stringify(sanitizeArray(payload.galleryImages)),
-      payload.category,
-      JSON.stringify(sanitizeArray(payload.highlights)),
-      JSON.stringify(sanitizeArray(payload.inclusions)),
-      JSON.stringify(sanitizeArray(payload.exclusions)),
-      JSON.stringify(sanitizeFaqs(payload.faqs)),
-      payload.isFeatured,
-      payload.tokenAmount,
       payload.status,
     ]);
 
     const packageId = insertResult.rows[0].id;
+
     await persistItinerary(client, packageId, payload.itinerary);
+
     await client.query("COMMIT");
 
     const { rows } = await query(packagesSql.selectById, [packageId]);
+
     return serializePackage(rows[0]);
-  } catch (error) {
+  } 
+  catch (error) {
     await client.query("ROLLBACK");
     throw error;
-  } finally {
+  } 
+  finally {
     client.release();
   }
 };
@@ -191,37 +166,36 @@ export const updatePackage = async (id, payload) => {
       payload.startingLocation,
       payload.destination,
       payload.coverImage,
-      JSON.stringify(sanitizeArray(payload.galleryImages)),
-      payload.category,
-      JSON.stringify(sanitizeArray(payload.highlights)),
-      JSON.stringify(sanitizeArray(payload.inclusions)),
-      JSON.stringify(sanitizeArray(payload.exclusions)),
-      JSON.stringify(sanitizeFaqs(payload.faqs)),
-      payload.isFeatured,
-      payload.tokenAmount,
       payload.status,
     ]);
 
     if (updateResult.rowCount === 0) {
-        throw new AppError(
-          MESSAGES.PACKAGE_NOT_FOUND,
-          HTTP_STATUS.NOT_FOUND
-        );
+      throw new AppError(
+        MESSAGES.PACKAGE_NOT_FOUND,
+        HTTP_STATUS.NOT_FOUND
+      );
     }
 
     await persistItinerary(client, id, payload.itinerary);
+
     await client.query("COMMIT");
 
     const { rows } = await query(packagesSql.selectById, [id]);
+
     if (!rows[0]) {
-      throw new AppError(MESSAGES.PACKAGE_NOT_FOUND, HTTP_STATUS.NOT_FOUND);
+      throw new AppError(
+        MESSAGES.PACKAGE_NOT_FOUND,
+        HTTP_STATUS.NOT_FOUND
+      );
     }
 
     return serializePackage(rows[0]);
-  } catch (error) {
+  } 
+  catch (error) {
     await client.query("ROLLBACK");
     throw error;
-  } finally {
+  } 
+  finally {
     client.release();
   }
 };

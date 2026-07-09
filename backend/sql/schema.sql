@@ -41,6 +41,30 @@ CREATE TABLE IF NOT EXISTS packages (
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+CREATE TABLE IF NOT EXISTS packages (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+
+    title VARCHAR(180) NOT NULL,
+    slug VARCHAR(200) NOT NULL UNIQUE,
+
+    description TEXT NOT NULL,
+
+    price NUMERIC(12,2) NOT NULL CHECK (price >= 0),
+
+    duration INTEGER NOT NULL CHECK (duration > 0),
+
+    starting_location VARCHAR(120) NOT NULL,
+
+    destination VARCHAR(120) NOT NULL,
+
+    cover_image TEXT NOT NULL,
+
+    status VARCHAR(20) NOT NULL DEFAULT 'draft'
+        CHECK (status IN ('draft', 'published', 'archived')),
+
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 -- =========================
 -- ITINERARIES
 -- =========================

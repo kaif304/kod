@@ -2,19 +2,19 @@
 -- DEFAULT ADMIN
 -- =========================
 
-INSERT INTO admins (
-    name,
-    email,
-    mobile_number,
-    password_hash
-)
-VALUES (
-    'KOD Super Admin',
-    'admin@kodtravel.com',
-    '9876543210',
-    crypt('Admin@12345', gen_salt('bf'))
-)
-ON CONFLICT (email) DO NOTHING;
+-- INSERT INTO admins (
+--     name,
+--     email,
+--     mobile_number,
+--     password_hash
+-- )
+-- VALUES (
+--     'KOD Super Admin',
+--     'admin@kodtravel.com',
+--     '9876543210',
+--     crypt('Admin@12345', gen_salt('bf'))
+-- )
+-- ON CONFLICT (email) DO NOTHING;
 
 -- =========================
 -- PACKAGES
@@ -28,10 +28,10 @@ INSERT INTO packages (
     duration,
     starting_location,
     destination,
-    cover_image
+    cover_image,
+    status
 )
 VALUES
-
 (
 'Royal Kashmir Escape',
 'royal-kashmir-escape',
@@ -40,7 +40,8 @@ VALUES
 6,
 'Delhi',
 'Kashmir',
-'https://images.unsplash.com/photo-1609947017136-9daf32a5eb16?auto=format&fit=crop&w=1200&q=80'
+'https://images.unsplash.com/photo-1609947017136-9daf32a5eb16?auto=format&fit=crop&w=1200&q=80',
+'published'
 ),
 
 (
@@ -51,7 +52,8 @@ VALUES
 5,
 'Mumbai',
 'Bali',
-'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=80'
+'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=80',
+'published'
 ),
 
 (
@@ -62,7 +64,8 @@ VALUES
 4,
 'Delhi',
 'Delhi, Agra & Jaipur',
-'https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=80'
+'https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=80',
+'published'
 )
 
 ON CONFLICT (slug)

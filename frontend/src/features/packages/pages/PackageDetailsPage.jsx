@@ -35,10 +35,7 @@ function PackageDetailsPage() {
   const [leadForm, setLeadForm] = useState(initialLeadForm)
   const [formMessage, setFormMessage] = useState('')
   const [submitState, setSubmitState] = useState('')
-  // const [paymentOrder, setPaymentOrder] = useState(null)
-  // const [paymentReference, setPaymentReference] = useState('')
-  // const [paymentConfirmation, setPaymentConfirmation] = useState('')
-
+  
   useEffect(() => {
     let isMounted = true
 
@@ -91,47 +88,6 @@ function PackageDetailsPage() {
     setLeadForm((current) => ({ ...current, [field]: value }))
   }
 
-  // const handleInquirySubmit = async (contactMode) => {
-  //   if (!packageItem) {
-  //     return
-  //   }
-
-  //   setSubmitState(contactMode)
-  //   setFormMessage('')
-  //   setPaymentConfirmation('')
-
-  //   try {
-  //     const lead = await createLead({
-  //       packageId: packageItem.id,
-  //       customerName: leadForm.customerName,
-  //       email: leadForm.email,
-  //       phone: leadForm.phone,
-  //       travelers: Number(leadForm.travelers),
-  //       message: leadForm.message,
-  //       contactMode,
-  //       source: 'package_page',
-  //     })
-
-  //     if (contactMode === 'book_now') {
-  //       const order = await createPaymentOrder({
-  //         leadId: lead.id,
-  //         amount: packageItem.tokenAmount,
-  //       })
-
-  //       setPaymentOrder(order)
-  //       setFormMessage('Lead created and token reservation reference generated.')
-  //     } else {
-  //       setPaymentOrder(null)
-  //       setFormMessage('Your inquiry is in. A destination manager will contact you shortly.')
-  //     }
-
-  //     setLeadForm(initialLeadForm)
-  //   } catch (error) {
-  //     setFormMessage(error.response?.data?.message || 'Something went wrong. Please try again.')
-  //   } finally {
-  //     setSubmitState('')
-  //   }
-  // }
   const handleInquirySubmit = async (contactMode) => {
     if (!packageItem) return;
 
@@ -166,33 +122,6 @@ function PackageDetailsPage() {
       setSubmitState("");
     }
   };
-
-  // const handlePaymentConfirmation = async () => {
-  //   if (!paymentOrder || !paymentReference) {
-  //     return
-  //   }
-
-  //   setSubmitState('payment')
-  //   setPaymentConfirmation('')
-
-  //   try {
-  //     await verifyPayment({
-  //       paymentId: paymentOrder.id,
-  //       paymentStatus: 'success',
-  //       transactionId: paymentReference,
-  //     })
-  //     setPaymentConfirmation(
-  //       'Payment reference submitted successfully. Your manager will validate and confirm manually.',
-  //     )
-  //     setPaymentReference('')
-  //   } catch (error) {
-  //     setPaymentConfirmation(
-  //       error.response?.data?.message || 'Unable to update payment right now.',
-  //     )
-  //   } finally {
-  //     setSubmitState('')
-  //   }
-  // }
 
   if (isLoading) {
     return (
@@ -242,21 +171,6 @@ function PackageDetailsPage() {
           />
 
         </div>
-
-        {/* <PackageBookingSidebar
-          packageItem={packageItem}
-          siteConfig={siteConfig}
-          leadForm={leadForm}
-          handleLeadChange={handleLeadChange}
-          handleInquirySubmit={handleInquirySubmit}
-          submitState={submitState}
-          formMessage={formMessage}
-          paymentOrder={paymentOrder}
-          paymentReference={paymentReference}
-          setPaymentReference={setPaymentReference}
-          handlePaymentConfirmation={handlePaymentConfirmation}
-          paymentConfirmation={paymentConfirmation}
-        /> */}
         
         <PackageBookingSidebar
           packageItem={packageItem}

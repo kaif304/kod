@@ -5,16 +5,16 @@ export function getStoredSession() {
     return null
   }
 
-  const rawValue = window.localStorage.getItem(SESSION_KEY)
-
-  if (!rawValue) {
-    return null
-  }
-
   try {
-    return JSON.parse(rawValue)
+    const rawSession = localStorage.getItem(SESSION_KEY)
+
+    if (!rawSession) {
+      return null
+    }
+
+    return JSON.parse(rawSession)
   } catch {
-    window.localStorage.removeItem(SESSION_KEY)
+    localStorage.removeItem(SESSION_KEY)
     return null
   }
 }
@@ -24,7 +24,7 @@ export function setStoredSession(session) {
     return
   }
 
-  window.localStorage.setItem(SESSION_KEY, JSON.stringify(session))
+  localStorage.setItem(SESSION_KEY, JSON.stringify(session))
 }
 
 export function clearStoredSession() {
@@ -32,9 +32,59 @@ export function clearStoredSession() {
     return
   }
 
-  window.localStorage.removeItem(SESSION_KEY)
+  localStorage.removeItem(SESSION_KEY)
 }
 
 export function getAccessToken() {
-  return getStoredSession()?.accessToken || ''
+  return getStoredSession()?.accessToken ?? ''
 }
+
+export function isLoggedIn() {
+  return Boolean(getAccessToken())
+}
+
+
+
+
+
+
+// const SESSION_KEY = 'kod_admin_session'
+
+// export function getStoredSession() {
+//   if (typeof window === 'undefined') {
+//     return null
+//   }
+
+//   const rawValue = window.localStorage.getItem(SESSION_KEY)
+
+//   if (!rawValue) {
+//     return null
+//   }
+
+//   try {
+//     return JSON.parse(rawValue)
+//   } catch {
+//     window.localStorage.removeItem(SESSION_KEY)
+//     return null
+//   }
+// }
+
+// export function setStoredSession(session) {
+//   if (typeof window === 'undefined') {
+//     return
+//   }
+
+//   window.localStorage.setItem(SESSION_KEY, JSON.stringify(session))
+// }
+
+// export function clearStoredSession() {
+//   if (typeof window === 'undefined') {
+//     return
+//   }
+
+//   window.localStorage.removeItem(SESSION_KEY)
+// }
+
+// export function getAccessToken() {
+//   return getStoredSession()?.accessToken || ''
+// }

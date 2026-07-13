@@ -3,22 +3,22 @@ import FormField from '../../../components/common/FormField.jsx'
 
 const createBlankPackage = () => ({
   title: '',
+  slug: '',
   description: '',
   price: 0,
   duration: 4,
   startingLocation: '',
   destination: '',
   coverImage: '',
-  category: 'Luxury',
   status: 'draft',
-  tokenAmount: 5000,
-  isFeatured: false,
-  galleryImagesText: '',
-  highlightsText: '',
-  inclusionsText: '',
-  exclusionsText: '',
-  faqs: [{ question: '', answer: '' }],
-  itinerary: [{ dayNumber: 1, title: '', description: '' }],
+
+  itinerary: [
+    {
+      dayNumber: 1,
+      title: '',
+      description: '',
+    },
+  ],
 })
 
 function toEditorState(packageItem) {
@@ -28,21 +28,15 @@ function toEditorState(packageItem) {
 
   return {
     title: packageItem.title || '',
+    slug: packageItem.slug || '',
     description: packageItem.description || '',
     price: packageItem.price || 0,
     duration: packageItem.duration || 4,
     startingLocation: packageItem.startingLocation || '',
     destination: packageItem.destination || '',
     coverImage: packageItem.coverImage || '',
-    category: packageItem.category || 'Luxury',
     status: packageItem.status || 'draft',
-    tokenAmount: packageItem.tokenAmount || 5000,
-    isFeatured: Boolean(packageItem.isFeatured),
-    galleryImagesText: (packageItem.galleryImages || []).join('\n'),
-    highlightsText: (packageItem.highlights || []).join('\n'),
-    inclusionsText: (packageItem.inclusions || []).join('\n'),
-    exclusionsText: (packageItem.exclusions || []).join('\n'),
-    faqs: packageItem.faqs?.length ? packageItem.faqs : [{ question: '', answer: '' }],
+
     itinerary: packageItem.itinerary?.length
       ? packageItem.itinerary
       : [{ dayNumber: 1, title: '', description: '' }],
@@ -56,15 +50,6 @@ function PackageEditor({ selectedPackage, onSubmit, onCancel, isSaving }) {
     setForm((current) => ({ ...current, [field]: value }))
   }
 
-  const updateFaq = (index, field, value) => {
-    setForm((current) => ({
-      ...current,
-      faqs: current.faqs.map((item, itemIndex) =>
-        itemIndex === index ? { ...item, [field]: value } : item,
-      ),
-    }))
-  }
-
   const updateItinerary = (index, field, value) => {
     setForm((current) => ({
       ...current,
@@ -74,34 +59,22 @@ function PackageEditor({ selectedPackage, onSubmit, onCancel, isSaving }) {
     }))
   }
 
-  const serializeLines = (value) =>
-    value
-      .split('\n')
-      .map((item) => item.trim())
-      .filter(Boolean)
-
   const handleSubmit = (event) => {
     event.preventDefault()
 
     onSubmit({
-      title: form.title,
-      description: form.description,
+      title: form.title.trim(),
+      slug: form.slug.trim(),
+      description: form.description.trim(),
       price: Number(form.price),
       duration: Number(form.duration),
-      startingLocation: form.startingLocation,
-      destination: form.destination,
-      coverImage: form.coverImage,
-      category: form.category,
-      status: form.status,
-      tokenAmount: Number(form.tokenAmount),
-      isFeatured: Boolean(form.isFeatured),
-      galleryImages: serializeLines(form.galleryImagesText),
-      highlights: serializeLines(form.highlightsText),
-      inclusions: serializeLines(form.inclusionsText),
-      exclusions: serializeLines(form.exclusionsText),
-      faqs: form.faqs.filter((item) => item.question && item.answer),
+      startingLocation: form.startingLocation.trim(),
+      destination: form.destination.trim(),
+      coverImage: form.coverImage.trim(),
+      status: form.status.trim(),
+
       itinerary: form.itinerary.filter(
-        (item) => item.dayNumber && item.title && item.description,
+        (item) => item.dayNumber && item.title.trim() && item.description.trim(),
       ),
     })
   }
@@ -122,7 +95,7 @@ function PackageEditor({ selectedPackage, onSubmit, onCancel, isSaving }) {
             className="rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700"
           >
             New package
-          </button>
+          </button> 
         ) : null}
       </div>
 
@@ -132,11 +105,13 @@ function PackageEditor({ selectedPackage, onSubmit, onCancel, isSaving }) {
           value={form.title}
           onChange={(event) => updateField('title', event.target.value)}
         />
+
         <FormField
-          label="Category"
-          value={form.category}
-          onChange={(event) => updateField('category', event.target.value)}
+          label="Slug"
+          value={form.slug}
+          onChange={(event) => updateField('slug', event.target.value)}
         />
+
         <div className="md:col-span-2">
           <FormField
             label="Description"
@@ -146,28 +121,32 @@ function PackageEditor({ selectedPackage, onSubmit, onCancel, isSaving }) {
             onChange={(event) => updateField('description', event.target.value)}
           />
         </div>
+
         <FormField
           label="Price"
-          type="number"
           value={form.price}
           onChange={(event) => updateField('price', event.target.value)}
         />
+        
         <FormField
           label="Duration"
           type="number"
           value={form.duration}
           onChange={(event) => updateField('duration', event.target.value)}
         />
+
         <FormField
           label="Starting Location"
           value={form.startingLocation}
           onChange={(event) => updateField('startingLocation', event.target.value)}
         />
+
         <FormField
           label="Destination"
           value={form.destination}
           onChange={(event) => updateField('destination', event.target.value)}
         />
+
         <div className="md:col-span-2">
           <FormField
             label="Cover Image URL"
@@ -175,6 +154,7 @@ function PackageEditor({ selectedPackage, onSubmit, onCancel, isSaving }) {
             onChange={(event) => updateField('coverImage', event.target.value)}
           />
         </div>
+
         <FormField
           label="Status"
           as="select"
@@ -185,90 +165,6 @@ function PackageEditor({ selectedPackage, onSubmit, onCancel, isSaving }) {
           <option value="published">Published</option>
           <option value="archived">Archived</option>
         </FormField>
-        <FormField
-          label="Token Amount"
-          type="number"
-          value={form.tokenAmount}
-          onChange={(event) => updateField('tokenAmount', event.target.value)}
-        />
-      </div>
-
-      <label className="mt-4 flex items-center gap-3 text-sm font-semibold text-slate-700">
-        <input
-          type="checkbox"
-          checked={form.isFeatured}
-          onChange={(event) => updateField('isFeatured', event.target.checked)}
-        />
-        Mark as featured
-      </label>
-
-      <div className="mt-6 grid gap-4 md:grid-cols-2">
-        <FormField
-          label="Gallery Image URLs"
-          as="textarea"
-          rows="5"
-          value={form.galleryImagesText}
-          onChange={(event) => updateField('galleryImagesText', event.target.value)}
-          placeholder="One image URL per line"
-        />
-        <FormField
-          label="Highlights"
-          as="textarea"
-          rows="5"
-          value={form.highlightsText}
-          onChange={(event) => updateField('highlightsText', event.target.value)}
-          placeholder="One highlight per line"
-        />
-        <FormField
-          label="Inclusions"
-          as="textarea"
-          rows="5"
-          value={form.inclusionsText}
-          onChange={(event) => updateField('inclusionsText', event.target.value)}
-          placeholder="One inclusion per line"
-        />
-        <FormField
-          label="Exclusions"
-          as="textarea"
-          rows="5"
-          value={form.exclusionsText}
-          onChange={(event) => updateField('exclusionsText', event.target.value)}
-          placeholder="One exclusion per line"
-        />
-      </div>
-
-      <div className="mt-6 rounded-[1.5rem] bg-white/65 p-4">
-        <div className="flex items-center justify-between gap-4">
-          <h3 className="text-xl font-semibold text-slate-900">FAQs</h3>
-          <button
-            type="button"
-            onClick={() =>
-              setForm((current) => ({
-                ...current,
-                faqs: [...current.faqs, { question: '', answer: '' }],
-              }))
-            }
-            className="rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700"
-          >
-            Add FAQ
-          </button>
-        </div>
-        <div className="mt-4 grid gap-4">
-          {form.faqs.map((faq, index) => (
-            <div key={`${faq.question}-${index}`} className="grid gap-3 md:grid-cols-2">
-              <FormField
-                label={`Question ${index + 1}`}
-                value={faq.question}
-                onChange={(event) => updateFaq(index, 'question', event.target.value)}
-              />
-              <FormField
-                label={`Answer ${index + 1}`}
-                value={faq.answer}
-                onChange={(event) => updateFaq(index, 'answer', event.target.value)}
-              />
-            </div>
-          ))}
-        </div>
       </div>
 
       <div className="mt-6 rounded-[1.5rem] bg-white/65 p-4">
@@ -294,6 +190,7 @@ function PackageEditor({ selectedPackage, onSubmit, onCancel, isSaving }) {
             Add day
           </button>
         </div>
+
         <div className="mt-4 grid gap-4">
           {form.itinerary.map((item, index) => (
             <div key={`${item.dayNumber}-${index}`} className="grid gap-3 md:grid-cols-[120px_1fr_1fr]">

@@ -96,6 +96,17 @@ export const getPackageBySlug = async (slug) => {
   return serializePackage(packageItem);
 };
 
+export const getPackageById = async (id) => {
+  const { rows } = await query(packagesSql.selectById, [id]);
+  const packageItem = rows[0];
+
+  if (!packageItem) {
+    throw new AppError(MESSAGES.PACKAGE_NOT_FOUND, HTTP_STATUS.NOT_FOUND);
+  }
+
+  return serializePackage(packageItem);
+};
+
 const persistItinerary = async (client, packageId, itinerary) => {
   await client.query(packagesSql.deleteItineraryByPackageId, [packageId]);
 

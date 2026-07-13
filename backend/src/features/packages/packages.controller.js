@@ -4,6 +4,7 @@ import {
   createPackage,
   deletePackage,
   getPackageBySlug,
+  getPackageById,
   getPackages,
   updatePackage,
 } from "./packages.service.js";
@@ -28,6 +29,15 @@ export const getAdminPackages = asyncHandler(async (req, res) => {
 
 export const getSinglePackage = asyncHandler(async (req, res) => {
   const data = await getPackageBySlug(req.params.slug);
+
+  res.status(HTTP_STATUS.OK).json({
+    success: true,
+    data,
+  });
+});
+
+export const getSinglePackageById = asyncHandler(async (req, res) => {
+  const data = await getPackageById(req.params.id);
 
   res.status(HTTP_STATUS.OK).json({
     success: true,

@@ -5,6 +5,7 @@ import {
   getAdminPackages,
   getAllPackages,
   getSinglePackage,
+  getSinglePackageById,
   updateSinglePackage,
 } from "./packages.controller.js";
 import { validate } from "../../middleware/validate.middleware.js";
@@ -37,6 +38,14 @@ router.get(
   authorizeRoles(ROLES.ADMIN, ROLES.MANAGER),
   validate(packageQuerySchema, "query"),
   getAdminPackages,
+);
+
+router.get(
+  "/admin/packages/:id",
+  requireAuth,
+  authorizeRoles("admin"),
+  validate(packageParamsSchema, "params"),
+  getSinglePackageById
 );
 
 router.get(

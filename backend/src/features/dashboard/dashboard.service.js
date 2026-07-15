@@ -3,26 +3,26 @@ import { dashboardSql } from "./dashboard.sql.js";
 
 export const getDashboardOverview = async () => {
   const [
-    // packageStatsResult,
+    packageStatsResult,
     leadStatsResult,
     recentLeadsResult,
   ] = await Promise.all([
-    // query(dashboardSql.packageStats),
+    query(dashboardSql.packageStats),
     query(dashboardSql.leadStats),
     query(dashboardSql.recentLeads),
   ]);
 
-  // const packageStats = packageStatsResult.rows[0];
+  const packageStats = packageStatsResult.rows[0];
   const leadStats = leadStatsResult.rows[0];
 
   return {
     stats: {
-      // packages: {
-      //   total: packageStats.total,
-      //   published: packageStats.published,
-      //   draft: packageStats.draft,
-      //   archived: packageStats.archived,
-      // },
+      packages: {
+        total: packageStats.total,
+        published: packageStats.published,
+        draft: packageStats.draft,
+        archived: packageStats.archived,
+      },
 
       leads: {
         total: leadStats.total,

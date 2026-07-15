@@ -1,44 +1,34 @@
 import { startTransition, useEffect, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
+
 import Loader from '../../../components/common/Loader.jsx'
 import StatusBadge from '../../../components/common/StatusBadge.jsx'
 import { formatCurrency } from '../../../utils/format.js'
+
 import PackageEditor from '../components/PackageEditor.jsx'
-import { fetchAdminPackages, removePackage, savePackage } from '../services.js'
+import AdminPackageCard from '../components/AdminPackageCard.jsx'
+import PackageGrid from '../components/PackageGrid.jsx'
+import AdminContentLayout from '../components/AdminContentLayout.jsx'
+
+import { fetchAllPackages, removePackage, savePackage } from '../services.js'
 
 function AdminPackagesPage() {
-  const [packages, setPackages] = useState([])
   const [selectedPackage, setSelectedPackage] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
   const [message, setMessage] = useState('')
 
-  const loadPackages = async () => {
-    const result = await fetchAdminPackages({ limit: 50 })
-    setPackages(result.items || [])
-  }
+  const {
+    data,
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ['admin-packages'],
+    queryFn: () => fetchAllPackages({ limit: 50 }),
+  })
 
-  useEffect(() => {
-    let isMounted = true
-
-    async function hydrate() {
-      try {
-        const result = await fetchAdminPackages({ limit: 50 })
-        if (isMounted) {
-          setPackages(result.items || [])
-        }
-      } finally {
-        if (isMounted) {
-          setIsLoading(false)
-        }
-      }
-    }
-
-    hydrate()
-
-    return () => {
-      isMounted = false
-    }
-  }, [])
+  const packages = data?.items ?? [];
 
   const handleSave = async (payload) => {
     setIsSaving(true)
@@ -46,14 +36,19 @@ function AdminPackagesPage() {
 
     try {
       await savePackage(payload, selectedPackage?.id)
-      await loadPackages()
+
+      await refetch()
+
       startTransition(() => {
         setSelectedPackage(null)
       })
+
       setMessage('Package saved successfully.')
-    } catch (error) {
+    } 
+    catch (error) {
       setMessage(error.response?.data?.message || 'Unable to save package.')
-    } finally {
+    } 
+    finally {
       setIsSaving(false)
     }
   }
@@ -67,82 +62,127 @@ function AdminPackagesPage() {
 
     try {
       await removePackage(packageId)
-      await loadPackages()
+      await refetch()
       setMessage('Package deleted successfully.')
-    } catch (error) {
+    } 
+    catch (error) {
       setMessage(error.response?.data?.message || 'Unable to delete package.')
     }
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-slate-900">Packages</h1>
-          <p className="mt-2 text-sm text-slate-500">
-            Manage all published and draft travel packages.
-          </p>
+      <AdminContentLayout top = {
+        <div className="flex items-center justify-between pb-6">
+          <div>
+            <h1 className="text-3xl font-bold text-slate-900">Packages</h1>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => startTransition(() => setSelectedPackage(null))}
+            className="rounded-full bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
+          >
+            New Package
+          </button>
         </div>
+      }>
+        <PackageGrid
+          packages={packages}
+          loading={isLoading}
+          error={isError ? error.message : ''}
+        />
+      </AdminContentLayout>
 
-        <button
-          type="button"
-          onClick={() => startTransition(() => setSelectedPackage(null))}
-          className="rounded-full bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
-        >
-          New Package
-        </button>
-      </div>
+    
+    // <div className="container flex h-full flex-col">
+    //   <div className="flex items-center justify-between pb-6">
+    //     <div>
+    //       <h1 className="text-3xl font-bold text-slate-900">Packages</h1>
+    //     </div>
 
-      <div className="space-y-4">
-        {isLoading ? (
-          <Loader label="Loading admin packages" />
-        ) : (
-          packages.map((item) => (
-            <div
-              key={item.id}
-              className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200"
-            >
-              <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
-                <div className="min-w-0">
-                  <div className="flex items-center gap-3">
-                    <h3 className="text-xl font-semibold text-slate-900">
-                      {item.title}
-                    </h3>
-                    <StatusBadge value={item.status} />
-                  </div>
+    //     <button
+    //       type="button"
+    //       onClick={() => startTransition(() => setSelectedPackage(null))}
+    //       className="rounded-full bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
+    //     >
+    //       New Package
+    //     </button>
+    //   </div>
 
-                  <p className="mt-2 text-sm text-slate-500">
-                    {item.destination}
-                  </p>
+    //   <div className='min-h-0 flex-1 overflow-y-auto'>
+    //     <PackageGrid
+    //       packages={packages}
+    //       loading={isLoading}
+    //       error={isError ? error.message : ''}
+    //     />
+    //   </div>
+    // </div>
+  )
+}
 
-                  <p className="mt-1 text-sm font-medium text-slate-700">
-                    {formatCurrency(item.price)}
-                  </p>
-                </div>
+export default AdminPackagesPage
 
-                <div className="flex flex-wrap gap-3">
-                  <button
-                    type="button"
-                    onClick={() => startTransition(() => setSelectedPackage(item))}
-                    className="rounded-full bg-slate-950 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-800"
-                  >
-                    View
-                  </button>
 
-                  <button
-                    type="button"
-                    onClick={() => handleDelete(item.id)}
-                    className="rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
-    </div>
+
+
+
+
+
+
+
+
+            // <div
+            //   key={item.id}
+            //   className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200"
+            // >
+            //   <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+            //     <div className="min-w-0">
+            //       <div className="flex items-center gap-3">
+            //         <h3 className="text-xl font-semibold text-slate-900">
+            //           {item.title}
+            //           {console.log(item.coverImage)}
+            //         </h3>
+            //         <StatusBadge value={item.status} />
+            //       </div>
+
+            //       <p className="mt-2 text-sm text-slate-500">
+            //         {item.destination}
+            //       </p>
+
+            //       <p className="mt-1 text-sm font-medium text-slate-700">
+            //         {formatCurrency(item.price)}
+            //       </p>
+            //     </div>
+
+            //     <div className="flex flex-wrap gap-3">
+            //       <button
+            //         type="button"
+            //         onClick={() => startTransition(() => setSelectedPackage(item))}
+            //         className="rounded-full bg-slate-950 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-800"
+            //       >
+            //         View
+            //       </button>
+
+            //       <button
+            //         type="button"
+            //         onClick={() => handleDelete(item.id)}
+            //         className="rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100"
+            //       >
+            //         Delete
+            //       </button>
+            //     </div>
+            //   </div>
+            // </div>
+
+
+
+
+
+
+
+
+
+
     // <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
     //   <div className="glass-panel rounded-[2rem] p-6">
     //     <p className="text-xs uppercase tracking-[0.35em] text-slate-500">Package management</p>
@@ -194,7 +234,3 @@ function AdminPackagesPage() {
     //     isSaving={isSaving}
     //   /> */}
     // </div>
-  )
-}
-
-export default AdminPackagesPage

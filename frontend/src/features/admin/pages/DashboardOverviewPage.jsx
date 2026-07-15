@@ -1,40 +1,27 @@
-import { useEffect, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
+
 import Loader from '../../../components/common/Loader.jsx'
 import StatCard from '../../../components/common/StatCard.jsx'
 import StatusBadge from '../../../components/common/StatusBadge.jsx'
+import AdminContentLayout from '../components/AdminContentLayout.jsx'
+
 import { fetchDashboardOverview } from '../services.js'
 import { formatCurrency, formatDate } from '../../../utils/format.js'
 
 function DashboardOverviewPage() {
-  const [data, setData] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
+  const {
+    data,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ['dashboard-overview'],
+    queryFn: fetchDashboardOverview,
+  })
 
-  useEffect(() => {
-    let isMounted = true
-
-    async function loadDashboard() {
-      try {
-        const result = await fetchDashboardOverview()
-        if (isMounted) {
-          setData(result)
-        }
-      } catch {
-        if (isMounted) {
-          setData(null)
-        }
-      } finally {
-        if (isMounted) {
-          setIsLoading(false)
-        }
-      }
-    }
-
-    loadDashboard()
-
-    return () => {
-      isMounted = false
-    }
-  }, [])
+  console.log(data);
+  const packagesStats = data?.stats?.packages ?? {}
+  const leadsStats = data?.stats?.leads ?? {}
 
   if (isLoading) {
     return (
@@ -44,28 +31,37 @@ function DashboardOverviewPage() {
     )
   }
 
+  if (isError) {
+    return (
+      <div className="glass-panel rounded-[2rem] p-10">
+        <p className="text-red-600">
+          {error.message || 'Unable to load dashboard overview.'}
+        </p>
+      </div>
+    )
+  }
+
   return (
-    <>
-      <div className="glass-panel rounded-[2rem] p-6">
-        <p className="text-xs uppercase tracking-[0.35em] text-slate-500">Overview</p>
-        <h2 className="mt-3 font-display text-5xl text-slate-900">Operations snapshot</h2>
-      </div>
+    <AdminContentLayout top = {
+      <div>
+        <div className="glass-panel flex justify-between items-center  rounded-[2rem] p-6">
+          <p className="text-lg uppercase tracking-[0.35em] text-slate-500">Overview</p>
+          <h2 className="font-display text-5xl text-slate-900">Operations snapshot</h2>
+        </div>
 
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-        <StatCard label="Total Packages" value={data?.stats.totalPackages || 0} />
-        <StatCard label="Published Packages" value={data?.stats.publishedPackages || 0} />
-        <StatCard label="Total Leads" value={data?.stats.totalLeads || 0} />
-        <StatCard label="Fresh Leads" value={data?.stats.freshLeads || 0} />
-        <StatCard label="Payments Logged" value={data?.stats.totalPayments || 0} />
-        <StatCard
-          label="Revenue Collected"
-          value={formatCurrency(data?.stats.revenueCollected || 0)}
-        />
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <StatCard label="Total Packages" value={packagesStats.total || 0} />
+          <StatCard label="Published Packages" value={packagesStats.published || 0} />
+          <StatCard label="Total Leads" value={leadsStats.total || 0} />
+          <StatCard label="Fresh Leads" value={leadsStats.new || 0} />
+          {/* <StatCard label="Payments Logged" value={stats.totalPayments || 0} /> */}
+          {/* <StatCard label="Revenue Collected" value={formatCurrency(data?.stats.revenueCollected || 0)}/> */}
+        </div>
       </div>
-
-      <div className="glass-panel rounded-[2rem] p-6">
-        <h3 className="text-2xl font-semibold text-slate-900">Recent leads</h3>
-        <div className="mt-5 grid gap-4">
+    }>
+      <div className="glass-panel rounded-[2rem]">
+        <h3 className="text-2xl px-6 py-4 font-semibold text-slate-900">Recent leads</h3>
+        <div className="">
           {data?.recentLeads?.map((lead) => (
             <div
               key={lead.id}
@@ -85,7 +81,7 @@ function DashboardOverviewPage() {
           ))}
         </div>
       </div>
-    </>
+    </AdminContentLayout>
   )
 }
 

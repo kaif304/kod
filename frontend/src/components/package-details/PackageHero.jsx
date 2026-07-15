@@ -1,5 +1,5 @@
-import StatusBadge from "../../../components/common/StatusBadge.jsx";
-import { formatCurrency } from "../../../utils/format.js";
+import StatusBadge from "../common/StatusBadge.jsx";
+import { formatCurrency } from "../../utils/format.js";
 
 function PackageHero({ packageItem }) {
   return (

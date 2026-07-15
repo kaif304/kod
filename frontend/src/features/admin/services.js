@@ -3,6 +3,7 @@ import {
   createPackage,
   deletePackage,
   fetchPackages,
+  fetchAdminPackages,
   updatePackage,
 } from '../packages/services.js'
 
@@ -16,8 +17,8 @@ export async function fetchDashboardOverview() {
   return response.data.data
 }
 
-export async function fetchAdminPackages(params = {}) {
-  return fetchPackages(params, true)
+export async function fetchAllPackages(params = {}) {
+  return fetchAdminPackages(params, true)
 }
 
 export async function savePackage(payload, packageId) {

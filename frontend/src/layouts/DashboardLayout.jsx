@@ -20,9 +20,10 @@ function DashboardLayout() {
   return (
     // <div className="min-h-screen bg-[#f7f2e8] px-4 py-6 sm:px-6">
     //   <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[280px_1fr]">
-    <div className="min-h-screen bg-[#f7f2e8]">
-      <div className="mx-auto flex min-h-screen max-w-7xl gap-6 px-4 py-6 sm:px-6">
-        <aside className="glass-panel h-fit w-[280px] shrink-0 rounded-[2rem] p-4">
+    // <div className="min-h-screen bg-[#f7f2e8]">
+    <div className="h-screen bg-[#f7f2e8] overflow-hidden">
+      <div className="mx-auto flex h-full max-w-8xl gap-6 px-4 py-6 sm:px-6">
+        <aside className="glass-panel h-full w-[280px] shrink-0 rounded-[2rem] p-4">
 
           <p className="text-xs uppercase tracking-[0.35em] text-slate-500">Admin Panel</p>
           <h1 className="mt-3 font-display text-4xl text-slate-900">KOD Control Room</h1>
@@ -57,7 +58,7 @@ function DashboardLayout() {
           </button>
         </aside>
 
-        <section className="space-y-6 min-w-0 flex-1">
+        <section className="min-w-0 flex-1">
           <Outlet />
         </section>
       </div>

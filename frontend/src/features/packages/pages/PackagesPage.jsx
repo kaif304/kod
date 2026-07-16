@@ -46,7 +46,7 @@ function PackagesPage() {
 
   return (
     <>
-      <section className="section-shell mt-10 pb-4">
+      <section className="section-shell mt-30 pb-4">
         <PackageFilters
           filters={filters}
           updateFilter={updateFilter}

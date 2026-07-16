@@ -9,7 +9,7 @@ function PackageFilters({
   resetFilters,
 }) {
   return (
-    <div className="glass-panel rounded-[2rem] p-6">
+    <div className="glass-panel flex gap-6 rounded-[2rem] px-6 py-3">
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
 
         <FormField

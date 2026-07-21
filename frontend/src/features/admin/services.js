@@ -1,24 +1,43 @@
 import api from '../../services/api.js'
-import {
-  createPackage,
-  deletePackage,
-  fetchPackages,
-  fetchAdminPackages,
-  updatePackage,
-} from '../packages/services.js'
+
+// Authentication
 
 export async function loginAdmin(credentials) {
   const response = await api.post('/auth/login', credentials)
   return response.data.data
 }
 
+// Dashboard
+
 export async function fetchDashboardOverview() {
   const response = await api.get('/dashboard/overview')
   return response.data.data
 }
 
-export async function fetchAllPackages(params = {}) {
-  return fetchAdminPackages(params, true)
+// Packages
+
+export async function fetchAdminPackages(params = {}) {
+  const response = await api.get('/packages/admin/packages', { params })
+  return response.data.data
+}
+
+export async function fetchAdminPackage(id) {
+  const response = await api.get(`/packages/admin/packages/${id}`)
+  return response.data.data 
+}
+
+export async function createPackage(payload) {
+  const response = await api.post('/packages/admin/packages', payload)
+  return response.data.data
+}
+
+export async function updatePackage(id, payload) {
+  const response = await api.patch(`/packages/admin/packages/${id}`, payload)
+  return response.data.data
+}
+
+export async function deletePackage(id) {
+  await api.delete(`/packages/admin/packages/${id}`)
 }
 
 export async function savePackage(payload, packageId) {
@@ -29,9 +48,7 @@ export async function savePackage(payload, packageId) {
   return createPackage(payload)
 }
 
-export async function removePackage(packageId) {
-  return deletePackage(packageId)
-}
+// Leads
 
 export async function fetchLeads(params = {}) {
   const response = await api.get('/leads', { params })

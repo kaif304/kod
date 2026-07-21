@@ -3,14 +3,13 @@ import { useQuery } from '@tanstack/react-query'
 
 import Loader from '../../../components/common/Loader.jsx'
 import StatusBadge from '../../../components/common/StatusBadge.jsx'
-import { formatCurrency } from '../../../utils/format.js'
-
 import PackageEditor from '../components/PackageEditor.jsx'
 import AdminPackageCard from '../components/AdminPackageCard.jsx'
 import PackageGrid from '../components/PackageGrid.jsx'
 import AdminContentLayout from '../components/AdminContentLayout.jsx'
 
-import { fetchAllPackages, removePackage, savePackage } from '../services.js'
+import { formatCurrency } from '../../../utils/format.js'
+import { fetchAdminPackages, deletePackage, savePackage } from '../services.js'
 
 function AdminPackagesPage() {
   const [selectedPackage, setSelectedPackage] = useState(null)
@@ -25,7 +24,7 @@ function AdminPackagesPage() {
     refetch,
   } = useQuery({
     queryKey: ['admin-packages'],
-    queryFn: () => fetchAllPackages({ limit: 50 }),
+    queryFn: () => fetchAdminPackages({ limit: 50 }),
   })
 
   const packages = data?.items ?? [];
@@ -61,7 +60,7 @@ function AdminPackagesPage() {
     }
 
     try {
-      await removePackage(packageId)
+      await deletePackage(packageId)
       await refetch()
       setMessage('Package deleted successfully.')
     } 

@@ -84,6 +84,7 @@ import DashboardOverviewPage from '../features/admin/pages/DashboardOverviewPage
 
 import DashboardLayout from '../layouts/DashboardLayout.jsx'
 import MainLayout from '../layouts/MainLayout.jsx'
+import AdminPackageDetailsPage from '../features/admin/pages/AdminPackageDetailsPage.jsx'
 
 function ProtectedOutlet() {
   const { isAuthenticated, isReady } = useAuth()
@@ -133,6 +134,7 @@ function AppRoutes() {
           <Route index element={<Navigate to="dashboard" replace />} />
           <Route path="dashboard" element={<DashboardOverviewPage />} />
           <Route path="packages" element={<AdminPackagesPage />} />
+          <Route path="packages/:id" element={<AdminPackageDetailsPage />} />
           <Route path="leads" element={<AdminLeadsPage />} />
           <Route path="payments" element={<AdminPaymentsPage />} />
         </Route>

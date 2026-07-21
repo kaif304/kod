@@ -57,7 +57,7 @@ function AdminPackageCard({ item }) {
         </div>
         
         <Link
-          to={`/packages/${item.slug}`}
+          to={`/admin/packages/${item.id}`}
           className="inline-flex items-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-cyan-900"
         >
           View

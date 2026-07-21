@@ -76,15 +76,17 @@ import HomePage from '../features/home/pages/HomePage.jsx'
 import PackageDetailsPage from '../features/packages/pages/PackageDetailsPage.jsx'
 import PackagesPage from '../features/packages/pages/PackagesPage.jsx'
 
+import PackageEditPage from '../features/admin/pages/PackageEditPage.jsx'
+import PackageCreatePage from '../features/admin/pages/PackageCreatePage.jsx'
 import AdminLeadsPage from '../features/admin/pages/AdminLeadsPage.jsx'
 import AdminLoginPage from '../features/admin/pages/AdminLoginPage.jsx'
 import AdminPackagesPage from '../features/admin/pages/AdminPackagesPage.jsx'
 import AdminPaymentsPage from '../features/admin/pages/AdminPaymentsPage.jsx'
 import DashboardOverviewPage from '../features/admin/pages/DashboardOverviewPage.jsx'
+import AdminPackageDetailsPage from '../features/admin/pages/AdminPackageDetailsPage.jsx'
 
 import DashboardLayout from '../layouts/DashboardLayout.jsx'
 import MainLayout from '../layouts/MainLayout.jsx'
-import AdminPackageDetailsPage from '../features/admin/pages/AdminPackageDetailsPage.jsx'
 
 function ProtectedOutlet() {
   const { isAuthenticated, isReady } = useAuth()
@@ -128,13 +130,15 @@ function AppRoutes() {
       <Route element={<GuestOnlyOutlet />}>
         <Route path="/admin/login" element={<AdminLoginPage />} />
       </Route>
-
+    
       <Route element={<ProtectedOutlet />}>
         <Route path="/admin" element={<DashboardLayout />}>
           <Route index element={<Navigate to="dashboard" replace />} />
           <Route path="dashboard" element={<DashboardOverviewPage />} />
           <Route path="packages" element={<AdminPackagesPage />} />
           <Route path="packages/:id" element={<AdminPackageDetailsPage />} />
+          <Route path="packages/:id/edit" element={<PackageEditPage />} />
+          <Route path="packages/new" element={<PackageCreatePage />} />
           <Route path="leads" element={<AdminLeadsPage />} />
           <Route path="payments" element={<AdminPaymentsPage />} />
         </Route>

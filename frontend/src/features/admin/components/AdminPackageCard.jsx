@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { formatCurrency } from '../../../utils/format.js'
 import { useEffect, useState } from 'react';
 
-function AdminPackageCard({ item }) {
+function AdminPackageCard({ item, onDelete }) {
 
   return (
     <motion.article
@@ -63,17 +63,18 @@ function AdminPackageCard({ item }) {
           View
         </Link>
         <Link
-          to={`/packages/${item.slug}`}
+          to={`/admin/packages/${item.id}/edit`}
           className="inline-flex items-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-cyan-900"
         >
           Edit
         </Link>
-        <Link
-          to={`/packages/${item.slug}`}
+        <button
+          type="button"
+          onClick={() => onDelete(item.id)}
           className="inline-flex items-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-cyan-900"
         >
           Delete
-        </Link>
+        </button>
       </div>
     </motion.article>
   )

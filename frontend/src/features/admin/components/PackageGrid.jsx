@@ -6,6 +6,7 @@ function PackageGrid({
   packages,
   loading,
   error,
+  onDelete
 }) {
   if (loading) {
     return (
@@ -30,6 +31,7 @@ function PackageGrid({
               <AdminPackageCard
                 key={item.slug}
                 item={item}
+                onDelete={onDelete}
               />
             ))}
           </div>

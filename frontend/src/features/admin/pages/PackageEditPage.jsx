@@ -1,135 +1,101 @@
 import { startTransition, useEffect, useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
-import { Link } from 'react-router-dom'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useParams, useNavigate } from 'react-router-dom'
 
 import Loader from '../../../components/common/Loader.jsx'
 import StatusBadge from '../../../components/common/StatusBadge.jsx'
-// import PackageEditor from '../components/PackageEditPage.jsx'
+import PackageEditor from '../components/PackageEditor.jsx'
 import AdminPackageCard from '../components/AdminPackageCard.jsx'
 import PackageGrid from '../components/PackageGrid.jsx'
 import AdminContentLayout from '../components/AdminContentLayout.jsx'
 
 import { formatCurrency } from '../../../utils/format.js'
-import { fetchAdminPackages, deletePackage, savePackage } from '../services.js'
+import { fetchAdminPackage, fetchAdminPackages, deletePackage, savePackage } from '../services.js'
 
-function AdminPackagesPage() {
-  const [selectedPackage, setSelectedPackage] = useState(null)
-  const [isSaving, setIsSaving] = useState(false)
-  const [message, setMessage] = useState('')
+function PackageEditPage() {
+    const { id } = useParams()
 
-  const {
-    data,
-    isLoading,
-    isError,
-    error,
-    refetch,
-  } = useQuery({
-    queryKey: ['admin-packages'],
-    queryFn: () => fetchAdminPackages({ limit: 50 }),
-  })
+    const [isSaving, setIsSaving] = useState(false)
+    const [message, setMessage] = useState('')
+    const navigate = useNavigate()
+    const queryClient = useQueryClient()
 
-  const packages = data?.items ?? [];
+    const {
+        data: packageItem, 
+        isLoading, 
+        error,
+        refetch,
+        } = useQuery({
+            queryKey: ['admin-package', id],
+            queryFn: () => fetchAdminPackage(id),
+        })
 
-  const handleSave = async (payload) => {
-    setIsSaving(true)
-    setMessage('')
+    const handleSave = async (payload) => {
+        setIsSaving(true)
+        setMessage('')
 
-    try {
-      await savePackage(payload, selectedPackage?.id)
+        try {
+            await savePackage(payload, id)
 
-      await refetch()
+            await queryClient.invalidateQueries({
+                queryKey: ['admin-packages'],
+            })
 
-      startTransition(() => {
-        setSelectedPackage(null)
-      })
+            navigate('/admin/packages')
 
-      setMessage('Package saved successfully.')
-    } 
-    catch (error) {
-      setMessage(error.response?.data?.message || 'Unable to save package.')
-    } 
-    finally {
-      setIsSaving(false)
-    }
-  }
-
-  const handleDelete = async (packageId) => {
-    const shouldDelete = window.confirm('Delete this package?')
-
-    if (!shouldDelete) {
-      return
+            setMessage('Package updated successfully.')
+        } catch (error) {
+            setMessage(error.response?.data?.message || 'Unable to save package.')
+        } finally {
+            setIsSaving(false)
+        }
     }
 
-    try {
-      await deletePackage(packageId)
+    const handleDelete = async (packageId) => {
+        const shouldDelete = window.confirm('Delete this package?')
 
-      await refetch()
+        if (!shouldDelete) {
+            return
+        }
 
-      setMessage('Package deleted successfully.')
-    } catch (error) {
-      setMessage(error.response?.data?.message || 'Unable to delete package.')
+        try {
+            await deletePackage(packageId)
+            await refetch()
+            setMessage('Package deleted successfully.')
+        } 
+        catch (error) {
+            setMessage(error.response?.data?.message || 'Unable to delete package.')
+        }
     }
-  }
 
   return (
-      <AdminContentLayout top = {
+    <AdminContentLayout top = {
         <div className="flex items-center justify-between pb-6">
-          <div>
-            <h1 className="text-3xl font-bold text-slate-900">Packages</h1>
-          </div>
+            <div>
+                <h1 className="text-3xl font-bold text-slate-900">Package</h1>
+            </div>
 
-          <Link
-            to={`/admin/packages/new`}
-            className="inline-flex items-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-cyan-900"
-          >
-            New Package
-          </Link>
-
-          {/* <button
+            {/* <button
             type="button"
             onClick={() => startTransition(() => setSelectedPackage(null))}
             className="rounded-full bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
-          >
+            >
             New Package
-          </button> */}
+            </button> */}
         </div>
-      }>
-        <PackageGrid
-          packages={packages}
-          loading={isLoading}
-          error={isError ? error.message : ''}
-          onDelete={handleDelete}
+        }>
+
+        <PackageEditor 
+            selectedPackage={packageItem} 
+            onSubmit={handleSave} 
+            isSaving={isSaving}
+            onDelete={handleDelete} 
         />
-      </AdminContentLayout>
-
-    
-    // <div className="container flex h-full flex-col">
-    //   <div className="flex items-center justify-between pb-6">
-    //     <div>
-    //       <h1 className="text-3xl font-bold text-slate-900">Packages</h1>
-    //     </div>
-
-    //     <button
-    //       type="button"
-    //       onClick={() => startTransition(() => setSelectedPackage(null))}
-    //       className="rounded-full bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
-    //     >
-    //       New Package
-    //     </button>
-    //   </div>
-
-    //   <div className='min-h-0 flex-1 overflow-y-auto'>
-    //     <PackageGrid
-    //       packages={packages}
-    //       loading={isLoading}
-    //       error={isError ? error.message : ''}
-    //     />
-    //   </div>
-    // </div>
+    </AdminContentLayout>
   )
 }
 
-export default AdminPackagesPage
+export default PackageEditPage
 
 
 

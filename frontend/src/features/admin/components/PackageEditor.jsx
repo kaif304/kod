@@ -1,22 +1,24 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+
+import { validatePackage } from '../utils/validatePackage.js'
 import FormField from '../../../components/common/FormField.jsx'
 
 const createBlankPackage = () => ({
-  title: '',
-  slug: '',
-  description: '',
-  price: 0,
+  title: 'sdfd',
+  slug: 'sdfsd-dfs',
+  description: 'sdfsdfsdfffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+  price: 45555,
   duration: 4,
-  startingLocation: '',
-  destination: '',
-  coverImage: '',
+  startingLocation: 'sdfsf',
+  destination: 'fsdfsd',
+  coverImage: 'https://th.bing.com/th/id/R.ae522236777272b2c70b7673d4eb786e?rik=aMDCKpaN5xyAnQ&riu=http%3a%2f%2fdiscoversikhism.com%2fimages%2fgurdwara%2fgurdwara_sri_nanak_matta_sahib%2fgurdwara_sri_nanak_matta_sahib5.jpg&ehk=ucchVXHjbIovsaRSxH0SMZuFMFnzSwOgHnf2BWPZMck%3d&risl=&pid=ImgRaw&r=0',
   status: 'draft',
 
   itinerary: [
     {
       dayNumber: 1,
-      title: '',
-      description: '',
+      title: 'fdfdsffffffffffffffffffff',
+      description: 'sdfsdfsdfffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
     },
   ],
 })
@@ -45,6 +47,11 @@ function toEditorState(packageItem) {
 
 function PackageEditor({ selectedPackage, onSubmit, onCancel, isSaving }) {
   const [form, setForm] = useState(() => toEditorState(selectedPackage))
+  const [errors, setErrors] = useState({})
+
+  useEffect(() => {
+    setForm(toEditorState(selectedPackage));
+  }, [selectedPackage]);
 
   const updateField = (field, value) => {
     setForm((current) => ({ ...current, [field]: value }))
@@ -61,6 +68,15 @@ function PackageEditor({ selectedPackage, onSubmit, onCancel, isSaving }) {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+
+    const validationErrors = validatePackage(form)
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors)
+      return
+    }
+
+    setErrors({})
 
     onSubmit({
       title: form.title.trim(),
@@ -103,12 +119,14 @@ function PackageEditor({ selectedPackage, onSubmit, onCancel, isSaving }) {
         <FormField
           label="Title"
           value={form.title}
+          error={errors.title}
           onChange={(event) => updateField('title', event.target.value)}
         />
 
         <FormField
           label="Slug"
           value={form.slug}
+          error={errors.slug}
           onChange={(event) => updateField('slug', event.target.value)}
         />
 
@@ -118,6 +136,7 @@ function PackageEditor({ selectedPackage, onSubmit, onCancel, isSaving }) {
             as="textarea"
             rows="4"
             value={form.description}
+            error={errors.description}
             onChange={(event) => updateField('description', event.target.value)}
           />
         </div>
@@ -125,6 +144,7 @@ function PackageEditor({ selectedPackage, onSubmit, onCancel, isSaving }) {
         <FormField
           label="Price"
           value={form.price}
+          error={errors.price}
           onChange={(event) => updateField('price', event.target.value)}
         />
         
@@ -132,18 +152,21 @@ function PackageEditor({ selectedPackage, onSubmit, onCancel, isSaving }) {
           label="Duration"
           type="number"
           value={form.duration}
+          error={errors.duration}
           onChange={(event) => updateField('duration', event.target.value)}
         />
 
         <FormField
           label="Starting Location"
           value={form.startingLocation}
+          error={errors.startingLocation}
           onChange={(event) => updateField('startingLocation', event.target.value)}
         />
 
         <FormField
           label="Destination"
           value={form.destination}
+          error={errors.destination}
           onChange={(event) => updateField('destination', event.target.value)}
         />
 
@@ -151,6 +174,7 @@ function PackageEditor({ selectedPackage, onSubmit, onCancel, isSaving }) {
           <FormField
             label="Cover Image URL"
             value={form.coverImage}
+            error={errors.coverImage}
             onChange={(event) => updateField('coverImage', event.target.value)}
           />
         </div>
@@ -198,16 +222,19 @@ function PackageEditor({ selectedPackage, onSubmit, onCancel, isSaving }) {
                 label="Day"
                 type="number"
                 value={item.dayNumber}
+                error={errors[`dayNumber-${index}`]}
                 onChange={(event) => updateItinerary(index, 'dayNumber', event.target.value)}
               />
               <FormField
                 label="Title"
                 value={item.title}
+                error={errors[`title-${index}`]}
                 onChange={(event) => updateItinerary(index, 'title', event.target.value)}
               />
               <FormField
                 label="Description"
                 value={item.description}
+                error={errors[`description-${index}`]}
                 onChange={(event) => updateItinerary(index, 'description', event.target.value)}
               />
             </div>

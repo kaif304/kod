@@ -127,17 +127,6 @@ function PackageBookingSidebar({
               ? "Requesting callback..."
               : "Request Callback"}
           </button>
-
-          {/* <button
-            type="button"
-            onClick={() => handleInquirySubmit("book_now")}
-            disabled={Boolean(submitState)}
-            className="rounded-full bg-cyan-800 px-5 py-3 text-sm font-semibold text-white disabled:opacity-60"
-          >
-            {submitState === "book_now"
-              ? "Creating token order..."
-              : `Reserve with ${formatCurrency(packageItem.tokenAmount)} token`}
-          </button> */}
         </div>
 
         {formMessage ? (
@@ -145,53 +134,6 @@ function PackageBookingSidebar({
             {formMessage}
           </p>
         ) : null}
-
-        {/* {paymentOrder ? (
-          <div className="mt-6 rounded-[1.5rem] bg-white/75 p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
-              Token payment reference
-            </p>
-
-            <p className="mt-3 text-lg font-bold text-slate-900">
-              {paymentOrder.transactionId}
-            </p>
-
-            <p className="mt-3 text-sm leading-7 text-slate-600">
-              Share this order reference with the customer while collecting the
-              token online. Once paid, store their bank or UPI transaction
-              reference below.
-            </p>
-
-            <div className="mt-4 grid gap-3">
-              <FormField
-                label="Customer transaction reference"
-                placeholder="UPI / bank reference"
-                value={paymentReference}
-                onChange={(event) =>
-                  setPaymentReference(event.target.value)
-                }
-              />
-
-              <button
-                type="button"
-                onClick={handlePaymentConfirmation}
-                disabled={submitState === "payment"}
-                className="rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white disabled:opacity-60"
-              >
-                {submitState === "payment"
-                  ? "Confirming..."
-                  : "Confirm Token Submitted"}
-              </button>
-            </div>
-
-            {paymentConfirmation ? (
-              <p className="mt-4 text-sm text-cyan-900">
-                {paymentConfirmation}
-              </p>
-            ) : null}
-          </div>
-        ) : null} */}
-        
       </div>
     </aside>
   );

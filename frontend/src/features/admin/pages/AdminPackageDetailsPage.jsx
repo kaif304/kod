@@ -47,36 +47,16 @@ function AdminPackageDetailsPage() {
 
 
   return (
-        <AdminContentLayout top={
-          <div className='glass-panel rounded-[2rem] p-6 flex justify-between items-center'>
-            <p className="text-lg uppercase tracking-[0.35em] text-slate-500">Package Management</p>
-            {/* <h2 className="text-3xl font-semibold text-slate-900">Control Room</h2> */}
-          </div>
-        }>
-          <PackageDetails 
-            packageItem={packageItem}
-            faqs={faqs}
-          />
-        </AdminContentLayout>
-
-
-
-    // <section className="section-shell pt-28 sm:pt-32">
-    //   {/* {error.message ? <p className="mb-4 text-sm text-amber-700">{error.message}</p> : null} */}
-
-    //   {/* <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]"> */}
-
-    //     <AdminContentLayout top={
-    //       <h1 className="text-2xl font-semibold text-slate-900">hello</h1>
-    //     }>
-    //       <PackageDetails 
-    //         packageItem={packageItem}
-    //         faqs={faqs}
-    //       />
-    //     </AdminContentLayout>
-        
-    //   {/* </div> */}
-    // </section>
+    <AdminContentLayout top={
+      <div className='glass-panel rounded-[2rem] p-6 flex justify-between items-center'>
+        <p className="text-lg uppercase tracking-[0.35em] text-slate-500">Package Management</p>
+      </div>
+    }>
+      <PackageDetails 
+        packageItem={packageItem}
+        faqs={faqs}
+      />
+    </AdminContentLayout>
   )
 }
 

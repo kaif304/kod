@@ -18,9 +18,6 @@ function DashboardLayout() {
   }
 
   return (
-    // <div className="min-h-screen bg-[#f7f2e8] px-4 py-6 sm:px-6">
-    //   <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[280px_1fr]">
-    // <div className="min-h-screen bg-[#f7f2e8]">
     <div className="h-screen bg-[#f7f2e8] overflow-hidden">
       <div className="mx-auto flex h-full max-w-8xl gap-6 px-4 py-6 sm:px-6">
         <aside className="glass-panel h-full w-[280px] shrink-0 rounded-[2rem] p-4">

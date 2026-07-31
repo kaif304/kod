@@ -16,16 +16,15 @@ function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      <div className="section-shell pt-4">
-        <div className="glass-panel rounded-full px-4 py-3 sm:px-6">
+      <div className="section-shell  pt-2 sm:pt-4">
+        <div className="glass-panel rounded-3xl px-2 py-2 sm:px-6">
           <div className="flex items-center justify-between gap-4">
             <Link to="/" className="flex items-center gap-3">
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-950 text-sm font-bold text-white">
-                <img src={Logo} alt="KOD logo" className='h-8 w-12' />
+              <div className="flex h-10 w-10 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-slate-950 text-sm font-bold text-white">
+                <img src={Logo} alt="KOD logo" className='h-6 w-8 sm:h-8 sm:w-12' />
               </div>
-              <div>
-                {/* <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Travel Service</p> */}
-                <p className="text-md font-bold text-slate-900">{siteConfig.companyName}</p>
+              <div className="hidden sm:flex">
+                <p className="text-xs sm:text-md font-bold text-slate-900">{siteConfig.companyName}</p>
               </div>
             </Link>
 
@@ -46,13 +45,13 @@ function Navbar() {
             <div className="hidden items-center gap-3 md:flex">
               <a
                 href={`tel:${siteConfig.managerPhoneRaw}`}
-                className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700"
+                className="rounded-3xl border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700"
               >
                 Call Manager
               </a>
               <Link
                 to="/packages"
-                className="rounded-full bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white"
+                className="rounded-3xl bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white"
               >
                 Explore Tours
               </Link>
@@ -61,7 +60,7 @@ function Navbar() {
             <button
               type="button"
               onClick={() => setIsOpen((current) => !current)}
-              className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 md:hidden"
+              className="md:hidden rounded-3xl border border-slate-200 px-2 py-1 cursor-pointer text-lg font-extrabold text-slate-700"
             >
               Menu
             </button>
@@ -75,20 +74,22 @@ function Navbar() {
                 exit={{ opacity: 0, height: 0 }}
                 className="overflow-hidden md:hidden"
               >
-                <div className="mt-4 grid gap-3 border-t border-slate-200 pt-4">
-                  {navItems.map((item) => (
-                    <NavLink
-                      key={item.to}
-                      to={item.to}
-                      onClick={() => setIsOpen(false)}
-                      className="text-sm font-semibold text-slate-700"
-                    >
-                      {item.label}
-                    </NavLink>
-                  ))}
+                <div className="flex flex-col gap-4">
+                  <div className="flex flex-col gap-4 items-center justify-center text-center">
+                    {navItems.map((item) => (
+                      <NavLink
+                        key={item.to}
+                        to={item.to}
+                        onClick={() => setIsOpen(false)}
+                        className="text-sm font-semibold text-slate-700"
+                      >
+                        {item.label}
+                      </NavLink>
+                    ))}
+                  </div>
                   <a
                     href={`tel:${siteConfig.managerPhoneRaw}`}
-                    className="rounded-full border border-slate-200 px-4 py-3 text-center text-sm font-semibold text-slate-700"
+                    className="rounded-3xl border border-slate-200 px-4 py-3 text-center text-sm font-semibold text-slate-700"
                   >
                     Call Manager
                   </a>

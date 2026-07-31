@@ -3,36 +3,38 @@ import { motion } from 'framer-motion'
 import './css/HeroSection.css'
 
 function HeroSection() {
+  const buttonStyle = "rounded-xl px-2 sm:px-4  py-2 sm:py-3 text-xs sm:text-sm flex items-center"
+
   return (
-    <section className="section-shell pt-28 sm:pt-32">
-      <div className="hero-shell relative overflow-hidden rounded-[2.5rem] px-6 py-10 sm:px-10 sm:py-14 lg:px-14 lg:py-18">
+    <section className="section-shell pt-20 sm:pt-32">
+      <div className="hero-shell relative overflow-hidden rounded-3xl px-4 py-4 sm:px-6 sm:py-6 lg:px-14 lg:py-14">
         <div className="hero-orb hero-orb-a" />
         <div className="hero-orb hero-orb-b" />
         <div className="hero-orb hero-orb-c" />
         <div className="hero-panorama" />
 
-        <div className="relative z-10 grid items-end gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="max-w-3xl"
           >
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.4em] text-cyan-100/80">
+            <p className="text-[0.5rem] sm:text-xs font-semibold uppercase tracking-[0.4em] text-cyan-100/80">
               Premium Travel Lead Platform
             </p>
-            <h1 className="font-display text-6xl leading-none text-white sm:text-7xl">
+            <h1 className="mt-3 font-display text-2xl sm:text-5xl md:text-6xl lg:text-7xl leading-none text-white">
               Crafted journeys for travelers who prefer a human touch.
             </h1>
-            <p className="mt-6 max-w-2xl text-base leading-8 text-white/80 sm:text-lg">
+            <p className="mt-3 text-xs sm:text-lg max-w-2xl leading-tight sm:leading-7 text-white/80">
               Kings of Destination helps travel brands showcase packages beautifully, collect
               serious inquiries, and convert them through real managers instead of fragile
               automation.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-6 sm:mt-8 flex sm:flex-wrap gap-3">
               <Link
                 to="/packages"
-                className="rounded-full bg-white px-6 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-50"
+                className={`${buttonStyle} bg-white font-bold text-slate-950 transition hover:bg-cyan-50`}
               >
                 Explore Packages
               </Link>
@@ -40,14 +42,14 @@ function HeroSection() {
                 href="https://wa.me/919876543210"
                 target="_blank"
                 rel="noreferrer"
-                className="rounded-full border border-white/25 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur"
+                className={`${buttonStyle} border border-white/25 bg-white/10 font-semibold text-white backdrop-blur`}
               >
-                Chat With Manager
+                Chat With Us
               </a>
             </div>
           </motion.div>
 
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.1 }}
@@ -74,7 +76,7 @@ function HeroSection() {
                 <li>Optionally record token payments without full OTA complexity</li>
               </ul>
             </div>
-          </motion.div>
+          </motion.div> */}
         </div>
       </div>
     </section>

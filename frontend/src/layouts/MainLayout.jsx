@@ -34,7 +34,7 @@ function MainLayout() {
       </main>
 
       <Footer />
-      <FloatingContactBar />
+      {/* <FloatingContactBar /> */}
     </div>
   )
 }

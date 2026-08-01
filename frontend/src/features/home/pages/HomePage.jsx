@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import PackageCard from '../../../components/common/PackageCard.jsx'
-import SectionHeading from '../../../components/common/SectionHeading.jsx'
-import Loader from '../../../components/common/Loader.jsx'
+
 import { fallbackPackages, siteConfig } from '../../../content/site.js'
 import { fetchPackages } from '../../packages/services.js'
+
+import Loader from '../../../components/common/Loader.jsx'
+import PackageCard from '../../../components/common/PackageCard.jsx'
+import SectionHeading from '../../../components/common/SectionHeading.jsx'
 import HeroSection from '../components/HeroSection.jsx'
 
 function HomePage() {
@@ -41,46 +43,46 @@ function HomePage() {
     <>
       <HeroSection />
 
-      <section className="section-shell mt-20">
-        <div className="grid gap-6 md:grid-cols-3">
+      {/* <section className="section-shell mt-10 md:mt-20">
+        <div className="grid gap-3 md:gap-6 md:grid-cols-3">
           {[
             ['Lead-first travel brand', 'Built for inquiry, callback, and manual conversion'],
             ['Admin visibility', 'Packages, leads, token payments, and analytics in one place'],
             ['Premium front-end tone', 'Quiet luxury visuals with responsive, smooth interactions'],
           ].map(([title, text]) => (
-            <div key={title} className="glass-panel rounded-[1.75rem] p-6">
+            <div key={title} className="glass-panel flex flex-col gap-1 rounded-3xl p-4 md:p-6">
               <p className="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-900/70">
                 Why it works
               </p>
-              <h3 className="mt-4 text-2xl font-semibold text-slate-900">{title}</h3>
-              <p className="mt-3 text-sm leading-7 text-slate-600">{text}</p>
+              <h3 className="text-xl sm:text-2xl font-semibold text-slate-900">{title}</h3>
+              <p className="text-xs sm:text-sm leading-7 text-slate-600">{text}</p>
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
-      <section className="section-shell mt-24">
+      <section className="section-shell mt-10 sm:mt-24">
         <div className="flex items-end justify-between gap-6">
           <SectionHeading
             eyebrow="Featured Packages"
-            title="Travel packages that invite conversation, not confusion."
-            description="Each package page is built to showcase itinerary depth, destination appeal, and strong lead capture options."
+            // title="Travel packages that invite conversation, not confusion."
+            // description="Each package page is built to showcase itinerary depth, destination appeal, and strong lead capture options."
           />
           <Link
             to="/packages"
-            className="hidden rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 md:inline-flex"
+            className="hidden md:inline-flex rounded-3xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700"
           >
             View all packages
           </Link>
         </div>
 
-        <div className="mt-10">
+        <div className="mt-6 sm:mt-10">
           {isLoading ? (
             <div className="py-16">
               <Loader label="Loading featured packages" />
             </div>
           ) : (
-            <div className="grid gap-6 lg:grid-cols-3">
+            <div className="grid gap-3 sm:gap-6 lg:grid-cols-3">
               {featuredPackages.map((item) => (
                 <PackageCard key={item.slug} item={item} />
               ))}
@@ -89,14 +91,14 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="section-shell mt-24">
+      <section className="section-shell mt-10 sm:mt-24">
         <SectionHeading
           eyebrow="Popular Destinations"
           title="Made for calm, premium destination discovery."
-          description="The homepage introduces strong travel intent with large-format visuals, subtle motion, and clear contact calls to action."
+          // description="The homepage introduces strong travel intent with large-format visuals, subtle motion, and clear contact calls to action."
           align="center"
         />
-        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+        <div className="mt-10 grid gap-3 sm:gap-6 lg:grid-cols-3">
           {siteConfig.destinations.map((destination, index) => (
             <motion.article
               key={destination.name}
@@ -122,7 +124,7 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="section-shell mt-24 grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
+      {/* <section className="section-shell mt-24 grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
         <SectionHeading
           eyebrow="Why Choose Us"
           title="Human-led conversions with a polished digital front door."
@@ -130,54 +132,54 @@ function HomePage() {
         />
         <div className="grid gap-4">
           {siteConfig.whyChooseUs.map((item) => (
-            <div key={item.title} className="glass-panel rounded-[1.75rem] p-6">
+            <div key={item.title} className="glass-panel rounded-3xl p-4 md:p-6">
               <h3 className="text-2xl font-semibold text-slate-900">{item.title}</h3>
               <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
-      <section className="section-shell mt-24">
+      {/* <section className="section-shell mt-24">
         <SectionHeading
           eyebrow="Testimonials"
           title="Travelers remember responsiveness as much as destination quality."
           description="These sections help communicate confidence to leads before your managers even start the first conversation."
           align="center"
         />
-        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+        <div className="mt-10 grid gap-3 sm:gap-6 lg:grid-cols-3">
           {siteConfig.testimonials.map((testimonial) => (
-            <div key={testimonial.name} className="glass-panel rounded-[2rem] p-6">
+            <div key={testimonial.name} className="glass-panel rounded-3xl p-4 md:p-6">
               <p className="text-sm leading-8 text-slate-600">“{testimonial.quote}”</p>
               <p className="mt-6 text-sm font-semibold text-slate-900">{testimonial.name}</p>
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
-      <section className="section-shell mt-24 pb-4">
-        <div className="overflow-hidden rounded-[2.5rem] bg-slate-950 px-6 py-10 text-white sm:px-10">
-          <div className="grid items-center gap-8 lg:grid-cols-[1fr_auto]">
+      <section className="section-shell mt-24">
+        <div className="overflow-hidden rounded-3xl px-6 sm:px-8 md:px-10 py-6 sm:py-8 md:py-10 bg-slate-950 text-white">
+          <div className="grid items-center gap-6 lg:grid-cols-[1fr_auto]">
             <div>
-              <p className="text-xs uppercase tracking-[0.35em] text-white/60">Ready to convert</p>
-              <h2 className="mt-4 font-display text-5xl leading-none">
+              <p className="text-[0.5rem] sm:text-xs uppercase tracking-[0.35em] text-white/60">Ready to convert</p>
+              <h2 className="mt-4 font-display text-2xl md:text-5xl leading-none">
                 Launch a travel storefront that feels premium and sells with a human touch.
               </h2>
-              <p className="mt-4 max-w-2xl text-sm leading-8 text-white/70">
+              <p className="mt-4 text-xs sm:text-sm max-w-2xl leading-4 text-white/70">
                 Browse packages, request callbacks, or reserve with a token amount. The handoff to
                 your operations team stays fully manual, deliberate, and controlled.
               </p>
             </div>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-col gap-3 text-center">
               <Link
                 to="/packages"
-                className="rounded-full bg-white px-6 py-3 text-sm font-bold text-slate-950"
+                className="rounded-3xl bg-white px-6 py-3 text-sm font-bold text-slate-950"
               >
                 Browse Packages
               </Link>
               <Link
                 to="/contact"
-                className="rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white"
+                className="rounded-3xl border border-white/20 px-6 py-3 text-sm font-semibold text-white"
               >
                 Contact Us
               </Link>

@@ -14,7 +14,7 @@ function SectionHeading({ eyebrow, title, description, align = 'left' }) {
           {eyebrow}
         </p>
       ) : null}
-      <h2 className="font-display text-4xl leading-none text-slate-900 sm:text-5xl">
+      <h2 className="font-display text-2xl sm:text-4xl leading-none text-slate-900">
         {title}
       </h2>
       {description ? (

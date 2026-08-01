@@ -27,7 +27,7 @@ function Footer() {
               Explore
             </h4>
 
-            <nav className="mt-3 sm:mt-4 flex flex-col gap-2 text-xs sm:text-sm text-slate-700">
+            <nav className="mt-3 sm:mt-4 flex flex-wrap sm:flex-col gap-2 justify-center text-xs sm:text-sm text-slate-700">
               <Link
                 className="transition-colors hover:text-cyan-600"
                 to="/"

@@ -98,7 +98,7 @@ function HomePage() {
           // description="The homepage introduces strong travel intent with large-format visuals, subtle motion, and clear contact calls to action."
           align="center"
         />
-        <div className="mt-10 grid gap-3 sm:gap-6 lg:grid-cols-3">
+        <div className="mt-10 grid gap-3 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {siteConfig.destinations.map((destination, index) => (
             <motion.article
               key={destination.name}
@@ -106,12 +106,12 @@ function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.45, delay: index * 0.08 }}
-              className="group relative overflow-hidden rounded-[2rem]"
+              className="group relative overflow-hidden rounded-3xl"
             >
               <img
                 src={destination.image}
                 alt={destination.name}
-                className="h-[420px] w-full object-cover transition duration-700 group-hover:scale-105"
+                className="h-[300px] w-full object-cover transition duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/10 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-6 text-white">

@@ -47,23 +47,23 @@ function ContactPage() {
       <section className="section-shell mt-10 grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
         <div className="space-y-6">
           <div className="glass-panel rounded-[2rem] p-6 sm:p-8">
-            <h2 className="text-3xl font-semibold text-slate-900">Company details</h2>
-            <div className="mt-5 space-y-4 text-sm leading-7 text-slate-600">
+            <h2 className="text-xl md:text-3xl font-semibold text-slate-900">Company details</h2>
+            <div className="mt-4 sm:mt-5 space-y-4 text-sm leading-5 sm:leading-7 text-slate-600">
               <p>{siteConfig.address}</p>
               <a href={`tel:${siteConfig.managerPhoneRaw}`}>{siteConfig.managerPhone}</a>
               <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
-              <div className="flex gap-3 pt-2">
+              <div className="flex gap-3 pt-2 text-xs sm:text-sm">
                 <a
                   href={`https://wa.me/${siteConfig.whatsappRaw}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="rounded-full bg-cyan-800 px-5 py-3 text-sm font-semibold text-white"
+                  className="rounded-3xl bg-cyan-800 px-4 sm:px-6 py-2 sm:py-3 font-semibold text-white"
                 >
                   WhatsApp
                 </a>
                 <a
                   href={`tel:${siteConfig.managerPhoneRaw}`}
-                  className="rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700"
+                  className="rounded-3xl border border-slate-300 px-4 sm:px-6 py-2 sm:py-3 font-semibold text-slate-700"
                 >
                   Call Now
                 </a>
@@ -83,8 +83,8 @@ function ContactPage() {
         </div>
 
         <div className="glass-panel rounded-[2rem] p-6 sm:p-8">
-          <h2 className="text-3xl font-semibold text-slate-900">Send an inquiry</h2>
-          <p className="mt-3 text-sm leading-7 text-slate-600">
+          <h2 className="text-xl md:text-3xl font-semibold text-slate-900">Send an inquiry</h2>
+          <p className="mt-4 text-xs sm:text-sm leading-5 sm:leading-7 text-slate-600">
             Capture general inquiries here and let the admin team review them inside the dashboard.
           </p>
           <div className="mt-6 grid gap-4">
@@ -121,18 +121,18 @@ function ContactPage() {
             />
           </div>
 
-          <div className="mt-6 flex flex-wrap gap-3">
+          <div className="mt-6 flex flex-wrap gap-3 text-sm">
             <button
               type="button"
               onClick={() => handleSubmit('inquiry')}
-              className="rounded-full bg-slate-950 px-6 py-3 text-sm font-semibold text-white"
+              className="rounded-3xl bg-slate-950 px-4 sm:px-6 py-2 sm:py-3 font-semibold text-white cursor-pointer"
             >
               Send Inquiry
             </button>
             <button
               type="button"
               onClick={() => handleSubmit('call_request')}
-              className="rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700"
+              className="rounded-3xl border border-slate-300 px-4 sm:px-6 py-2 sm:py-3 font-semibold text-slate-700 cursor-pointer"
             >
               Request Callback
             </button>

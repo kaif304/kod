@@ -51,7 +51,7 @@ const InquiryForm = ({
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-5 rounded-xl border bg-white p-6 shadow-sm"
+      className="space-y-5 border-rounded border bg-white p-6 shadow-sm"
     >
       <h2 className="text-xl font-semibold">
         Plan Your Trip
@@ -68,7 +68,7 @@ const InquiryForm = ({
           value={form.customerName}
           onChange={handleChange}
           required
-          className="w-full rounded-lg border p-3 outline-none focus:ring-2 focus:ring-slate-900"
+          className="w-full border-rounded border p-3 outline-none focus:ring-2 focus:ring-slate-900"
         />
       </div>
 
@@ -83,7 +83,7 @@ const InquiryForm = ({
           value={form.phone}
           onChange={handleChange}
           required
-          className="w-full rounded-lg border p-3 outline-none focus:ring-2 focus:ring-slate-900"
+          className="w-full border-rounded border p-3 outline-none focus:ring-2 focus:ring-slate-900"
         />
       </div>
 
@@ -97,7 +97,7 @@ const InquiryForm = ({
           name="email"
           value={form.email}
           onChange={handleChange}
-          className="w-full rounded-lg border p-3 outline-none focus:ring-2 focus:ring-slate-900"
+          className="w-full border-rounded border p-3 outline-none focus:ring-2 focus:ring-slate-900"
         />
       </div>
 
@@ -112,7 +112,7 @@ const InquiryForm = ({
           name="travelers"
           value={form.travelers}
           onChange={handleChange}
-          className="w-full rounded-lg border p-3 outline-none focus:ring-2 focus:ring-slate-900"
+          className="w-full border-rounded border p-3 outline-none focus:ring-2 focus:ring-slate-900"
         />
       </div>
 
@@ -126,18 +126,18 @@ const InquiryForm = ({
           name="message"
           value={form.message}
           onChange={handleChange}
-          className="w-full rounded-lg border p-3 outline-none focus:ring-2 focus:ring-slate-900"
+          className="w-full border-rounded border p-3 outline-none focus:ring-2 focus:ring-slate-900"
         />
       </div>
 
       {error && (
-        <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600">
+        <div className="border-rounded bg-red-50 p-3 text-sm text-red-600">
           {error}
         </div>
       )}
 
       {success && (
-        <div className="rounded-lg bg-green-50 p-3 text-sm text-green-700">
+        <div className="border-rounded bg-green-50 p-3 text-sm text-green-700">
           Thank you! Our travel expert will contact you shortly.
         </div>
       )}
@@ -145,7 +145,7 @@ const InquiryForm = ({
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-lg bg-slate-900 py-3 font-medium text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full border-rounded bg-slate-900 py-3 font-medium text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {loading ? "Sending..." : "Send Inquiry"}
       </button>

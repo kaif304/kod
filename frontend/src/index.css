@@ -27,9 +27,9 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  background:
+  /* background:
     radial-gradient(circle at top, rgba(12, 114, 144, 0.16), transparent 28%),
-    linear-gradient(180deg, #f8f4eb 0%, #f2ede4 42%, #fcfaf7 100%);
+    linear-gradient(180deg, #f8f4eb 0%, #f2ede4 42%, #fcfaf7 100%); */
   color: var(--text);
   font-family: 'Manrope', sans-serif;
   text-rendering: optimizeLegibility;
@@ -70,13 +70,17 @@ img {
 }
 
 .section-shell {
-  width: min(1200px, calc(100% - 1rem));
+  width: min(1330px, calc(100% - 1rem));
   margin-inline: auto;
 }
 
 .soft-grid {
-  background-image:
+  /* background-image:
     linear-gradient(rgba(11, 59, 74, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(11, 59, 74, 0.04) 1px, transparent 1px);
+    linear-gradient(90deg, rgba(11, 59, 74, 0.04) 1px, transparent 1px); */
   background-size: 42px 42px;
+}
+
+.border-rounded {
+  border-radius: 1.5rem;
 }

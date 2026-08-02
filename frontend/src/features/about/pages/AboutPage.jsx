@@ -12,7 +12,7 @@ function AboutPage() {
       />
 
       <section className="section-shell mt-10 grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
-        <div className="glass-panel rounded-[2rem] p-6 sm:p-8">
+        <div className="glass-panel border-rounded p-6 sm:p-8">
           <p className="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-900/70">
             Our Story
           </p>
@@ -32,7 +32,7 @@ function AboutPage() {
             ['Approach', 'Use elegant package storytelling, clean admin visibility, and careful manual follow-up.'],
             ['Future-ready', 'Keep the architecture modular so operations, payments, and package data can scale gradually.'],
           ].map(([title, description]) => (
-            <div key={title} className="glass-panel rounded-[1.75rem] p-6">
+            <div key={title} className="glass-panel border-rounded p-6">
               <h3 className="text-2xl font-semibold text-slate-900">{title}</h3>
               <p className="mt-3 text-sm leading-7 text-slate-600">{description}</p>
             </div>
@@ -49,8 +49,8 @@ function AboutPage() {
         />
         <div className="mt-10 grid gap-6 lg:grid-cols-3">
           {siteConfig.team.map((member) => (
-            <div key={member.name} className="glass-panel rounded-[2rem] p-6">
-              <div className="h-16 w-16 rounded-full bg-slate-950 text-center text-2xl leading-[64px] font-bold text-white">
+            <div key={member.name} className="glass-panel border-rounded p-6">
+              <div className="h-16 w-16 border-rounded bg-slate-950 text-center text-2xl leading-[64px] font-bold text-white">
                 {member.name.charAt(0)}
               </div>
               <h3 className="mt-5 text-2xl font-semibold text-slate-900">{member.name}</h3>

@@ -61,7 +61,7 @@ function HomePage() {
         </div>
       </section> */}
 
-      <section className="section-shell mt-10 sm:mt-24">
+      <section className="section-shell mt-10 sm:mt-16">
         <div className="flex items-end justify-between gap-6">
           <SectionHeading
             eyebrow="Featured Packages"
@@ -70,7 +70,7 @@ function HomePage() {
           />
           <Link
             to="/packages"
-            className="hidden md:inline-flex rounded-3xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700"
+            className="hidden md:inline-flex border-rounded border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700"
           >
             View all packages
           </Link>
@@ -82,7 +82,7 @@ function HomePage() {
               <Loader label="Loading featured packages" />
             </div>
           ) : (
-            <div className="grid gap-3 sm:gap-6 lg:grid-cols-3">
+            <div className="grid gap-3 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
               {featuredPackages.map((item) => (
                 <PackageCard key={item.slug} item={item} />
               ))}
@@ -91,7 +91,7 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="section-shell mt-10 sm:mt-24">
+      <section className="section-shell mt-10 sm:mt-16">
         <SectionHeading
           eyebrow="Popular Destinations"
           title="Made for calm, premium destination discovery."
@@ -106,7 +106,7 @@ function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.45, delay: index * 0.08 }}
-              className="group relative overflow-hidden rounded-3xl"
+              className="group relative overflow-hidden border-rounded"
             >
               <img
                 src={destination.image}
@@ -157,8 +157,8 @@ function HomePage() {
         </div>
       </section> */}
 
-      <section className="section-shell mt-24">
-        <div className="overflow-hidden rounded-3xl px-6 sm:px-8 md:px-10 py-6 sm:py-8 md:py-10 bg-slate-950 text-white">
+      <section className="section-shell mt-20">
+        <div className="overflow-hidden border-rounded px-6 sm:px-8 md:px-10 py-6 sm:py-8 md:py-10 bg-slate-950 text-white">
           <div className="grid items-center gap-6 lg:grid-cols-[1fr_auto]">
             <div>
               <p className="text-[0.5rem] sm:text-xs uppercase tracking-[0.35em] text-white/60">Ready to convert</p>
@@ -173,13 +173,13 @@ function HomePage() {
             <div className="flex flex-col gap-3 text-center">
               <Link
                 to="/packages"
-                className="rounded-3xl bg-white px-6 py-3 text-sm font-bold text-slate-950"
+                className="border-rounded bg-white px-6 py-3 text-sm font-bold text-slate-950"
               >
                 Browse Packages
               </Link>
               <Link
                 to="/contact"
-                className="rounded-3xl border border-white/20 px-6 py-3 text-sm font-semibold text-white"
+                className="border-rounded border border-white/20 px-6 py-3 text-sm font-semibold text-white"
               >
                 Contact Us
               </Link>

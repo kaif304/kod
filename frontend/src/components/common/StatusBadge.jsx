@@ -18,7 +18,7 @@ function StatusBadge({ value }) {
   const tone = toneMap[normalizedValue] || 'bg-slate-100 text-slate-700'
 
   return (
-    <span className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold capitalize ${tone}`}>
+    <span className={`inline-flex border-rounded px-3 py-1 text-xs font-semibold capitalize ${tone}`}>
       {normalizedValue || 'unknown'}
     </span>
   )

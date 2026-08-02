@@ -4,7 +4,7 @@ function PackageGallery({ gallery, title }) {
       <img
         src={gallery[0]}
         alt={title}
-        className="h-[400px] w-full rounded-[2rem] object-cover"
+        className="h-[400px] w-full border-rounded object-cover"
       />
 
       <div className="grid gap-4">
@@ -13,7 +13,7 @@ function PackageGallery({ gallery, title }) {
             key={image}
             src={image}
             alt={title}
-            className="h-[192px] w-full rounded-[1.5rem] object-cover"
+            className="h-[192px] w-full border-rounded object-cover"
           />
         ))}
       </div>

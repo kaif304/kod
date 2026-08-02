@@ -3,7 +3,7 @@ import { formatCurrency } from "../../utils/format.js";
 function PackageOverview({ packageItem }) {
   return (
     <div className="grid gap-6 lg:grid-cols-2">
-      <div className="glass-panel rounded-[2rem] p-6">
+      <div className="glass-panel border-rounded p-6">
         <h2 className="text-2xl font-semibold text-slate-900">
           Highlights
         </h2>
@@ -12,7 +12,7 @@ function PackageOverview({ packageItem }) {
           {packageItem.highlights?.map((item) => (
             <span
               key={item}
-              className="rounded-full bg-slate-950 px-4 py-2 text-sm font-semibold text-white"
+              className="border-rounded bg-slate-950 px-4 py-2 text-sm font-semibold text-white"
             >
               {item}
             </span>
@@ -20,7 +20,7 @@ function PackageOverview({ packageItem }) {
         </div>
       </div>
 
-      <div className="glass-panel rounded-[2rem] p-6">
+      <div className="glass-panel border-rounded p-6">
         <h2 className="text-2xl font-semibold text-slate-900">
           Package Snapshot
         </h2>

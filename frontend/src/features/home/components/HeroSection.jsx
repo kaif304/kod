@@ -7,7 +7,7 @@ function HeroSection() {
 
   return (
     <section className="section-shell pt-20 sm:pt-32">
-      <div className="hero-shell relative overflow-hidden rounded-3xl px-4 py-4 sm:px-6 sm:py-6 lg:px-14 lg:py-14">
+      <div className="hero-shell relative overflow-hidden border-rounded px-4 py-4 sm:px-6 sm:py-6 lg:px-14 lg:py-14">
         <div className="hero-orb hero-orb-a" />
         <div className="hero-orb hero-orb-b" />
         <div className="hero-orb hero-orb-c" />

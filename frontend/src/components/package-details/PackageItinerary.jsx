@@ -1,6 +1,6 @@
 function PackageItinerary({ itinerary }) {
   return (
-    <div className="glass-panel rounded-[2rem] p-6">
+    <div className="glass-panel border-rounded p-6">
       <h2 className="text-2xl font-semibold text-slate-900">
         Day-wise Itinerary
       </h2>
@@ -9,7 +9,7 @@ function PackageItinerary({ itinerary }) {
         {itinerary?.map((item) => (
           <div
             key={`${item.dayNumber}-${item.title}`}
-            className="rounded-[1.5rem] bg-white/70 p-5"
+            className="border-rounded bg-white/70 p-5"
           >
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-800/75">
               Day {item.dayNumber}

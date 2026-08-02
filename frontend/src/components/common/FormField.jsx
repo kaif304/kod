@@ -12,7 +12,7 @@ function FormField({
       {label}
 
       <Component
-        className={`w-full rounded-2xl border bg-white/85 px-4 py-3 text-sm text-slate-900 outline-none transition
+        className={`w-full rounded-xl border bg-white/85 px-4 py-3 text-sm text-slate-900 outline-none transition
           ${
             error
               ? 'border-red-500 focus:border-red-500 focus:ring-red-500/15'

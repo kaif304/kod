@@ -9,7 +9,7 @@ function PackageCard({ item }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.45 }}
-      className="group overflow-hidden rounded-3xl border border-white/60 bg-white/75 shadow-[0_25px_60px_rgba(15,23,42,0.08)] backdrop-blur"
+      className="group overflow-hidden border-rounded border border-white/60 bg-white/75 shadow-[0_25px_60px_rgba(15,23,42,0.08)] backdrop-blur"
     >
 
       <div className="relative h-64 overflow-hidden">
@@ -19,10 +19,10 @@ function PackageCard({ item }) {
           className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
         />
         <div className="absolute inset-x-4 top-4 flex items-center justify-between">
-          <span className="rounded-3xl bg-white/80 px-3 py-1 text-xs font-semibold text-slate-800 backdrop-blur">
+          <span className="border-rounded bg-white/80 px-3 py-1 text-xs font-semibold text-slate-800 backdrop-blur">
             {item.category}
           </span>
-          <span className="rounded-3xl bg-slate-950/75 px-3 py-1 text-xs font-semibold text-white">
+          <span className="border-rounded bg-slate-950/75 px-3 py-1 text-xs font-semibold text-white">
             {item.duration} Days
           </span>
         </div>
@@ -56,7 +56,7 @@ function PackageCard({ item }) {
         
         <Link
           to={`/packages/${item.slug}`}
-          className="mt-2 rounded-3xl px-4 sm:px-5 py-3 text-xs sm:text-sm text-center bg-slate-950 font-semibold text-white transition hover:bg-cyan-900"
+          className="mt-2 border-rounded px-4 sm:px-5 py-3 text-xs sm:text-sm text-center bg-slate-950 font-semibold text-white transition hover:bg-cyan-900"
         >
           Explore Package
         </Link>

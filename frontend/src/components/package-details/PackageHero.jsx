@@ -3,11 +3,11 @@ import { formatCurrency } from "../../utils/format.js";
 
 function PackageHero({ packageItem }) {
   return (
-    <div className="glass-panel rounded-[2rem] p-6 sm:p-8">
+    <div className="glass-panel border-rounded p-6 sm:p-8">
       <div className="flex flex-wrap items-center gap-3">
         <StatusBadge value={packageItem.status} />
 
-        <span className="rounded-full bg-cyan-50 px-3 py-1 text-xs font-semibold text-cyan-900">
+        <span className="border-rounded bg-cyan-50 px-3 py-1 text-xs font-semibold text-cyan-900">
           {packageItem.category}
         </span>
       </div>
@@ -21,7 +21,7 @@ function PackageHero({ packageItem }) {
       </p>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-3">
-        <div className="rounded-[1.5rem] bg-white/70 p-4">
+        <div className="border-rounded bg-white/70 p-4">
           <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
             Duration
           </p>
@@ -31,7 +31,7 @@ function PackageHero({ packageItem }) {
           </p>
         </div>
 
-        <div className="rounded-[1.5rem] bg-white/70 p-4">
+        <div className="border-rounded bg-white/70 p-4">
           <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
             Destination
           </p>
@@ -41,7 +41,7 @@ function PackageHero({ packageItem }) {
           </p>
         </div>
 
-        <div className="rounded-[1.5rem] bg-white/70 p-4">
+        <div className="border-rounded bg-white/70 p-4">
           <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
             Starting From
           </p>

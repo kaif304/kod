@@ -1,6 +1,6 @@
 function StatCard({ label, value, helper }) {
   return (
-    <div className="glass-panel rounded-[1.5rem] p-5">
+    <div className="glass-panel border-rounded p-5">
       <p className="text-sm font-medium text-slate-500">{label}</p>
       <p className="mt-3 text-3xl font-bold text-slate-900">{value}</p>
       {helper ? <p className="mt-2 text-sm text-slate-500">{helper}</p> : null}

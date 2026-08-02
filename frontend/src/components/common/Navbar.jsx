@@ -17,10 +17,10 @@ function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       <div className="section-shell  pt-2 sm:pt-4">
-        <div className="glass-panel rounded-3xl px-2 py-2 sm:px-6">
+        <div className="glass-panel border-rounded px-2 py-2 sm:px-6">
           <div className="flex items-center justify-between gap-4">
             <Link to="/" className="flex items-center gap-3">
-              <div className="flex h-10 w-10 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-slate-950 text-sm font-bold text-white">
+              <div className="flex h-10 w-10 sm:h-14 sm:w-14 items-center justify-center border-rounded bg-slate-950 text-sm font-bold text-white">
                 <img src={Logo} alt="KOD logo" className='h-6 w-8 sm:h-8 sm:w-12' />
               </div>
               <div className="hidden sm:flex">
@@ -45,13 +45,13 @@ function Navbar() {
             <div className="hidden items-center gap-3 md:flex">
               <a
                 href={`tel:${siteConfig.managerPhoneRaw}`}
-                className="rounded-3xl border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700"
+                className="border-rounded border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700"
               >
                 Call Manager
               </a>
               <Link
                 to="/packages"
-                className="rounded-3xl bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white"
+                className="border-rounded border border-slate-200 bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white"
               >
                 Explore Tours
               </Link>
@@ -60,7 +60,7 @@ function Navbar() {
             <button
               type="button"
               onClick={() => setIsOpen((current) => !current)}
-              className="md:hidden rounded-3xl border border-slate-200 px-2 py-1 cursor-pointer text-lg font-extrabold text-slate-700"
+              className="md:hidden border-rounded border border-slate-200 px-2 py-1 cursor-pointer text-lg font-extrabold text-slate-700"
             >
               Menu
             </button>
@@ -89,7 +89,7 @@ function Navbar() {
                   </div>
                   <a
                     href={`tel:${siteConfig.managerPhoneRaw}`}
-                    className="rounded-3xl border border-slate-200 px-4 py-3 text-center text-sm font-semibold text-slate-700"
+                    className="border-rounded border border-slate-200 px-4 py-3 text-center text-sm font-semibold text-slate-700"
                   >
                     Call Manager
                   </a>

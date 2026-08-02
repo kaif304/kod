@@ -20,11 +20,11 @@ function DashboardLayout() {
   return (
     <div className="h-screen bg-[#f7f2e8] overflow-hidden">
       <div className="mx-auto flex h-full max-w-8xl gap-6 px-4 py-6 sm:px-6">
-        <aside className="glass-panel h-full w-[280px] shrink-0 rounded-[2rem] p-4">
+        <aside className="glass-panel h-full w-[280px] shrink-0 border-rounded p-4">
 
           <p className="text-xs uppercase tracking-[0.35em] text-slate-500">Admin Panel</p>
           <h1 className="mt-3 font-display text-4xl text-slate-900">KOD Control Room</h1>
-          <div className="mt-6 rounded-[1.5rem] bg-white/70 p-4">
+          <div className="mt-6 border-rounded bg-white/70 p-4">
             <p className="text-sm font-semibold text-slate-900">{admin?.name}</p>
             <p className="mt-1 text-sm text-slate-500">{admin?.role}</p>
           </div>
@@ -35,7 +35,7 @@ function DashboardLayout() {
                 key={link.to}
                 to={link.to}
                 className={({ isActive }) =>
-                  `rounded-2xl px-4 py-3 text-sm font-semibold transition ${
+                  `border-rounded px-4 py-3 text-sm font-semibold transition ${
                     isActive
                       ? 'bg-slate-950 text-white'
                       : 'bg-white/65 text-slate-700 hover:bg-white'
@@ -49,7 +49,7 @@ function DashboardLayout() {
           <button
             type="button"
             onClick={handleLogout}
-            className="mt-6 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700"
+            className="mt-6 w-full border-rounded border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700"
           >
             Logout
           </button>

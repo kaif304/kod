@@ -1,6 +1,6 @@
 function PackageFaqs({ faqs }) {
   return (
-    <div className="glass-panel rounded-[2rem] p-6">
+    <div className="glass-panel border-rounded p-6">
       <h2 className="text-2xl font-semibold text-slate-900">
         FAQs
       </h2>
@@ -9,7 +9,7 @@ function PackageFaqs({ faqs }) {
         {faqs?.map((faq) => (
           <div
             key={faq.question}
-            className="rounded-[1.5rem] bg-white/70 p-5"
+            className="border-rounded bg-white/70 p-5"
           >
             <h3 className="text-lg font-semibold text-slate-900">
               {faq.question}

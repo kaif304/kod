@@ -12,7 +12,7 @@ function PackageBookingSidebar({
 }) {
   return (
     <aside className="space-y-6 lg:sticky lg:top-28 lg:self-start">
-      <div className="glass-panel rounded-[2rem] p-6">
+      <div className="glass-panel border-rounded p-6">
         <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500">
           Starting price
         </p>
@@ -29,7 +29,7 @@ function PackageBookingSidebar({
         <div className="mt-6 grid gap-3 sm:grid-cols-2">
           <a
             href={`tel:${siteConfig.managerPhoneRaw}`}
-            className="rounded-full bg-slate-950 px-5 py-3 text-center text-sm font-semibold text-white"
+            className="border-rounded bg-slate-950 px-5 py-3 text-center text-sm font-semibold text-white"
           >
             Call Manager
           </a>
@@ -38,14 +38,14 @@ function PackageBookingSidebar({
             href={`https://wa.me/${siteConfig.whatsappRaw}`}
             target="_blank"
             rel="noreferrer"
-            className="rounded-full bg-cyan-800 px-5 py-3 text-center text-sm font-semibold text-white"
+            className="border-rounded bg-cyan-800 px-5 py-3 text-center text-sm font-semibold text-white"
           >
             WhatsApp
           </a>
         </div>
       </div>
 
-      <div className="glass-panel rounded-[2rem] p-6">
+      <div className="glass-panel border-rounded p-6">
         <h2 className="text-2xl font-semibold text-slate-900">
           Inquiry & Booking Desk
         </h2>
@@ -110,7 +110,7 @@ function PackageBookingSidebar({
             type="button"
             onClick={() => handleInquirySubmit("inquiry")}
             disabled={Boolean(submitState)}
-            className="rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white disabled:opacity-60"
+            className="border-rounded bg-slate-950 px-5 py-3 text-sm font-semibold text-white disabled:opacity-60"
           >
             {submitState === "inquiry"
               ? "Sending inquiry..."
@@ -121,7 +121,7 @@ function PackageBookingSidebar({
             type="button"
             onClick={() => handleInquirySubmit("call_request")}
             disabled={Boolean(submitState)}
-            className="rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 disabled:opacity-60"
+            className="border-rounded border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 disabled:opacity-60"
           >
             {submitState === "call_request"
               ? "Requesting callback..."
